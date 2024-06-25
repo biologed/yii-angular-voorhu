@@ -1,0 +1,149 @@
+<section class="menu">
+  <div class="logo">
+    <a routerLink="/"><app-svg-logo [width]="256" [height]="56"></app-svg-logo></a>
+    <a target="_blank" href="https://discord.gg/6438KrNr38" tuiLink class="link">Discord</a>
+    <div *ngIf="isLogin$ | async; else templateLogout">
+      <a href="/auth/logout" tuiLink class="contact">Logout</a>
+    </div>
+    <ng-template #templateLogout>
+      <a routerLink="/auth/login" tuiLink class="contact">Login</a>
+    </ng-template>
+  </div>
+</section>
+<section class="header">
+  <div class="offer">
+    <div class="title__container">
+      <p>UNREAL ENGINE PLUGINS BY VOORHU</p>
+      <h1 class="mb-2">A PROVEN WAY TO SELL MORE</h1>
+    </div>
+  </div>
+  <picture>
+    <img alt="" ngSrc="/assets/media/output.jpg" height="1152" width="2048">
+  </picture>
+  <div class="img__break"></div>
+</section>
+<section class="slider">
+  <div class="slider__container">
+    <app-swiper></app-swiper>
+  </div>
+</section>
+<section class="faq">
+  <div class="container">
+    <div class="title">
+      <h2>
+        <p>Часто задаваемые</p>
+        <strong>
+          <p>вопросы</p>
+        </strong>
+      </h2>
+    </div>
+    <ul>
+      <li>
+        <button class="head" (click)="toggleNavigation('voorhu', $event)">
+          <span>С чего начинается VOORHU?</span>
+          <tui-svg src="tuiIconChevronDownLarge" class="icon" [class.icon_rotated]="(navigationState['voorhu'] === 'active')"></tui-svg>
+        </button>
+        <div [@toggleHeight]="navigationState['voorhu']" class="desc">
+          <p>
+            Наша команда состоит из трёх человек. Каждый из нас занимается абсолютно разными проектами, но мы решили объединить усилия для создания вспомогательного софта, который бы облегчил нашу работу.
+            <br><br>
+            И так появился наш первый плагин ADSCore Lite для простой интеграции Яндекс рекламы в мобильные приложения Android в Unreal Engine.
+            <br>
+            Теперь этот плагин доступен для всех!
+            <br>
+            Мы планируем создать ещё не мало полезных и удобных инструментов для разработчиков Unreal Engine и не только.
+          </p>
+        </div>
+      </li>
+      <li>
+        <button class="head" (click)="toggleNavigation('adscorelite', $event)">
+          <span>Что такое ADSCore Lite?</span>
+          <tui-svg src="tuiIconChevronDownLarge" class="icon" [class.icon_rotated]="(navigationState['adscorelite'] === 'active')"></tui-svg>
+        </button>
+        <div [@toggleHeight]="navigationState['adscorelite']" class="desc">
+          <p>
+            В 2023 году команда VOORHU выпустила свой дебютный проект, а именно плагин для Unreal Engine, позволяющий монетизировать вашу игру в два клика, посредством добавления рекламной сети Яндекс.
+            <br><br>
+            Название плагина ADSCore Lite и он доступен абсолютно бесплатно!
+            <br>
+            Скачать плагин и узнать больше о нашей команде можно по ссылке:
+            <br>
+            <a href="https://boosty.to/voorhu">https://boosty.to/voorhu</a>
+          </p>
+        </div>
+      </li>
+    </ul>
+  </div>
+</section>
+<section class="content">
+  <div class="img__break"></div>
+  <div class="offer">
+    <div class="title__container">
+      <p>10 000+ downloads Voorhu Plugin</p>
+      <h1>Join a growing community of enthusiasts</h1>
+    </div>
+    <div class="pricing">
+      <div class="block">
+        <div class="content">
+          <div class="title">ADSCORE LITE</div>
+          <h2 class="price">
+            FREE
+          </h2>
+          <div class="list">
+            <div class="item"><tui-svg src="tuiIconCheck" class="icon"></tui-svg>Commercial use</div>
+            <div class="item"><tui-svg src="tuiIconCheck" class="icon"></tui-svg>Interstitial Advertising</div>
+            <div class="item"><tui-svg src="tuiIconClose" class="icon"></tui-svg>Startup Advertising</div>
+            <div class="item"><tui-svg src="tuiIconClose" class="icon"></tui-svg>Banner Advertising</div>
+            <div class="item"><tui-svg src="tuiIconClose" class="icon"></tui-svg>Rewarded Video Advertising</div>
+            <div class="item"><tui-svg src="tuiIconClose" class="icon"></tui-svg>Advertising Mediation</div>
+          </div>
+        </div>
+      </div>
+      <div class="block">
+        <div class="content">
+          <div class="title">ADSCORE PRO</div>
+          <h2 class="price">
+            <div class="currency">₽</div> 4999
+          </h2>
+          <div class="list">
+            <div class="item"><tui-svg src="tuiIconCheck" class="icon"></tui-svg>Commercial use</div>
+            <div class="item"><tui-svg src="tuiIconCheck" class="icon"></tui-svg>Interstitial Advertising</div>
+            <div class="item"><tui-svg src="tuiIconCheck" class="icon"></tui-svg>Startup Advertising</div>
+            <div class="item"><tui-svg src="tuiIconCheck" class="icon"></tui-svg>Banner Advertising</div>
+            <div class="item"><tui-svg src="tuiIconCheck" class="icon"></tui-svg>Rewarded Video Advertising</div>
+            <div class="item"><tui-svg src="tuiIconCheck" class="icon"></tui-svg>Advertising Mediation</div>
+            <div class="item"><tui-svg src="tuiIconCheck" class="icon"></tui-svg>Individual support</div>
+            <div class="item"><tui-svg src="tuiIconCheck" class="icon"></tui-svg>Access to Voorhu Plugin previews</div>
+          </div>
+        </div>
+      </div>
+      <div class="block">
+        <div class="content">
+          <div class="title">CUSTOM LICENSE</div>
+          <h2 class="price">
+            N / A
+          </h2>
+          <div class="list">
+            <div class="item"><tui-svg src="tuiIconCheck" class="icon"></tui-svg>Commercial use</div>
+            <div class="item"><tui-svg src="tuiIconCheck" class="icon"></tui-svg>Access to Voorhu Plugin previews</div>
+            <div class="item"><tui-svg src="tuiIconCheck" class="icon"></tui-svg>C++ functions support</div>
+            <div class="item"><tui-svg src="tuiIconCheck" class="icon"></tui-svg>Discrod dev brench access</div>
+            <div class="item"><tui-svg src="tuiIconCheck" class="icon"></tui-svg>Full source code access</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <picture>
+    <img alt="output" ngSrc="/assets/media/output.jpg" height="1152" width="2048">
+  </picture>
+</section>
+<section class="footer">
+  <div class="conteiner">
+    <a target="_blank" href="https://boosty.to/voorhu" tuiLink class="icon"><app-svg-boosty [width]="36" [height]="36"></app-svg-boosty></a>
+    <a target="_blank" href="https://discord.gg/6438KrNr38" tuiLink class="icon"><app-svg-discord [width]="36" [height]="36"></app-svg-discord></a>
+  </div>
+</section>
+<section class="anchor">
+  <a target="_blank" href="https://drive.google.com/viewerng/viewer?url=https://voorhu.com/assets/media/policy-ru.pdf" tuiLink class="policy">Privacy Policy</a>
+</section>

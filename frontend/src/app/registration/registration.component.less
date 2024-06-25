@@ -1,0 +1,40 @@
+::ng-deep [tuiWrapper][data-appearance=textfield] {
+  background: var(--tui-clear-inverse);
+}
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  .col_8 {
+    width: 66.66666667%;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+    box-sizing: border-box;
+    .form__header {
+      margin-top: 0;
+      font: var(--tui-font-heading-5);
+      margin-bottom: 1.25rem;
+    }
+    .form__field-note {
+      margin-top: .25rem;
+      color: var(--tui-text-02);
+    }
+    .form__row {
+      margin-top: 1.25rem;
+      &_multi-fields {
+        display: flex;
+      }
+    }
+    .form__buttons {
+      display: flex;
+      margin-top: 2rem;
+    }
+    .login {
+      margin-top: 1rem;
+      font: var(--tui-font-heading-6);
+      .link {
+        color: var(--tui-primary);
+      }
+    }
+  }
+}

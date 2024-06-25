@@ -1,0 +1,29 @@
+<form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+  <div class="row">
+    <div class="col_8">
+      <h3 class="form__header">Welcome home</h3>
+      <div class="form__field-note">Please login</div>
+      <div class="form__row">
+        <tui-input formControlName="username">
+          Login
+          <input autocomplete="on" tuiTextfield/>
+        </tui-input>
+        <tui-error formControlName="username" [error]="[] | tuiFieldError | async"></tui-error>
+      </div>
+      <div class="form__row">
+        <div class="form__multi-field">
+          <tui-input-password formControlName="password">
+            Password
+            <input autocomplete="on" tuiTextfield/>
+          </tui-input-password>
+          <tui-error formControlName="password" [error]="[] | tuiFieldError | async"></tui-error>
+        </div>
+      </div>
+      <div class="form__buttons">
+        <button size="l" tuiButton type="submit" [disabled]="!loginForm.valid" class="form__button">Sign In</button>
+        <a href="https://www.epicgames.com/id/authorize?client_id=xyza7891aObTJltvrMm4zvoackvCDsFU&response_type=code&scope=basic_profile+email" class="epic"><app-svg-epic></app-svg-epic>Epic Games</a>
+      </div>
+      <div class="registration">First time on the Voorhu? <a class="link" routerLink="/auth/registration">Create an account</a></div>
+    </div>
+  </div>
+</form>

@@ -1,0 +1,47 @@
+:host {
+  --swiper-pagination-color: #fff;
+}
+swiper {
+  &-container {
+    width: 100%;
+  }
+  &-slide {
+    text-align: center;
+    font-size: 18px;
+    display: block;
+    height: 100%;
+    .swipper-wrapper {
+      padding: 2% 2% 0;
+    }
+    .swiper-title {
+      line-height: 1.2rem;
+      font-size: 1.5rem;
+    }
+    .swiper-desc {
+      margin-top: 12px;
+      font-size: 1rem;
+      line-height: 1.5rem;
+      height: 60px;
+    }
+    .swiper-content {
+    }
+    img {
+      display: block;
+      width: 100%;
+      object-fit: cover;
+      min-height: 300px;
+    }
+    @media (min-width: 1080px) {
+      img {
+        min-height: 400px;
+      }
+    }
+  }
+
+  @media (min-width: 1080px) {
+    &-slide {
+      min-height: 515px;
+    }
+  }
+}
+
