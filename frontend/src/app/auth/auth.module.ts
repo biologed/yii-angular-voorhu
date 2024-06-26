@@ -6,6 +6,7 @@ import {RouterLink, RouterOutlet} from "@angular/router";
 
 //icons
 import {LogoComponent} from "../icons/logo/logo.component";
+import {TuiSvgModule} from "@taiga-ui/core";
 @NgModule({
   declarations: [
     AuthComponent
@@ -19,6 +20,7 @@ import {LogoComponent} from "../icons/logo/logo.component";
     NgOptimizedImage,
     RouterLink,
     RouterOutlet,
+    TuiSvgModule,
   ]
 })
 export class AuthModule { }

@@ -1,4 +1,9 @@
 <div class="wrapper">
+  <div class="back">
+    <a routerLink="/">
+      <tui-svg src="tuiIconBackCircleLarge" class="icon"></tui-svg>
+    </a>
+  </div>
   <picture>
     <img alt="" ngSrc="/assets/media/output.jpg" height="1152" width="2048">
   </picture>
@@ -6,7 +11,7 @@
     <div class="logo-column">
       <div class="logo">
         <a routerLink="/">
-          <app-svg-logo [width]=500 [height]=100></app-svg-logo>
+          <app-svg-logo [width]="500" [height]="100"></app-svg-logo>
         </a>
       </div>
     </div>

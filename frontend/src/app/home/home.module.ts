@@ -14,6 +14,13 @@ import {RouterLink, RouterOutlet} from "@angular/router";
 import {LogoComponent} from "../icons/logo/logo.component";
 import {BoostyComponent} from "../icons/boosty/boosty.component";
 import {DiscordComponent} from "../icons/discord/discord.component";
+import {GithubComponent} from "../icons/github/github.component";
+export const svgIcons = [
+  LogoComponent,
+  BoostyComponent,
+  DiscordComponent,
+  GithubComponent,
+]
 @NgModule({
   declarations: [
     HomeComponent
@@ -26,12 +33,10 @@ import {DiscordComponent} from "../icons/discord/discord.component";
     SwiperModule,
     RouterLink,
     RouterOutlet,
-    LogoComponent,
-    BoostyComponent,
-    DiscordComponent,
     TuiRootModule,
     TuiSvgModule,
     TuiLinkModule,
+    ...svgIcons
   ],
   providers: [
     httpInterceptorProviders

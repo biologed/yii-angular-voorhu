@@ -1,6 +1,6 @@
 <section class="menu">
   <div class="logo">
-    <a routerLink="/"><app-svg-logo [width]="256" [height]="56"></app-svg-logo></a>
+    <a routerLink="/"><app-svg-logo></app-svg-logo></a>
     <a target="_blank" href="https://discord.gg/6438KrNr38" tuiLink class="link">Discord</a>
     <div *ngIf="isLogin$ | async; else templateLogout">
       <a href="/auth/logout" tuiLink class="contact">Logout</a>
@@ -97,6 +97,7 @@
             <div class="item"><tui-svg src="tuiIconClose" class="icon"></tui-svg>Rewarded Video Advertising</div>
             <div class="item"><tui-svg src="tuiIconClose" class="icon"></tui-svg>Advertising Mediation</div>
           </div>
+          <a class="link" href="https://github.com/voorhu/adscorelite/releases" target="_blank"><span>Download</span></a>
         </div>
       </div>
       <div class="block">
@@ -115,6 +116,7 @@
             <div class="item"><tui-svg src="tuiIconCheck" class="icon"></tui-svg>Individual support</div>
             <div class="item"><tui-svg src="tuiIconCheck" class="icon"></tui-svg>Access to Voorhu Plugin previews</div>
           </div>
+          <a class="link" href="https://boosty.to/voorhu" target="_blank"><span>Buy now</span></a>
         </div>
       </div>
       <div class="block">
@@ -130,6 +132,7 @@
             <div class="item"><tui-svg src="tuiIconCheck" class="icon"></tui-svg>Discrod dev brench access</div>
             <div class="item"><tui-svg src="tuiIconCheck" class="icon"></tui-svg>Full source code access</div>
           </div>
+          <a class="link" href="https://discord.gg/6438KrNr38" target="_blank"><span>Contact us</span></a>
         </div>
       </div>
     </div>
@@ -140,8 +143,9 @@
 </section>
 <section class="footer">
   <div class="conteiner">
-    <a target="_blank" href="https://boosty.to/voorhu" tuiLink class="icon"><app-svg-boosty [width]="36" [height]="36"></app-svg-boosty></a>
-    <a target="_blank" href="https://discord.gg/6438KrNr38" tuiLink class="icon"><app-svg-discord [width]="36" [height]="36"></app-svg-discord></a>
+    <a target="_blank" href="https://boosty.to/voorhu" tuiLink class="icon"><app-svg-boosty></app-svg-boosty></a>
+    <a target="_blank" href="https://discord.gg/6438KrNr38" tuiLink class="icon"><app-svg-discord></app-svg-discord></a>
+    <a target="_blank" href="https://github.com/voorhu/" tuiLink class="icon"><app-svg-github></app-svg-github></a>
   </div>
 </section>
 <section class="anchor">

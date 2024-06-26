@@ -6,6 +6,6 @@ import {Component, Input} from '@angular/core';
   styleUrls: ['./boosty.component.less']
 })
 export class BoostyComponent {
-  @Input() width: number | undefined = 256;
-  @Input() height: number | undefined = 56;
+  @Input() width: number | undefined = 36;
+  @Input() height: number | undefined = 36;
 }

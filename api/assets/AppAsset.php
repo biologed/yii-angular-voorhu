@@ -28,9 +28,9 @@ class AppAsset extends AssetBundle
         'styles.css',
     ];
     public $js = (YII_ENV_PROD) ? [
-        'runtime.fd9b191b4ccd37c6.js',
+        'runtime.0c4ef525c08ba50e.js',
         'polyfills.08499eb88f05c6aa.js',
-        'main.6c0c35a6aa24f6d7.js',
+        'main.faad89f5865c7fda.js',
     ] : [
         'runtime.js',
         'polyfills.js',
