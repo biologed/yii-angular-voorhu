@@ -1,0 +1,44 @@
+<form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+  <div class="row">
+    <div class="col_8">
+      <h3 class="form__header">{{"registration.title" | translate}}</h3>
+      <div class="form__field-note">{{"registration.subtitle" | translate}}</div>
+      <div class="form__row">
+        <tui-input formControlName="username">
+          {{"registration.inputs.login" | translate}}
+          <input autocomplete="on" tuiTextfield/>
+        </tui-input>
+        <tui-error formControlName="username" [error]="[] | tuiFieldError | async"></tui-error>
+      </div>
+      <div class="form__row">
+        <tui-input formControlName="email">
+          {{"registration.inputs.email" | translate}}
+          <input autocomplete="on" tuiTextfield/>
+        </tui-input>
+        <tui-error formControlName="email" [error]="[] | tuiFieldError | async"></tui-error>
+      </div>
+      <div class="form__row">
+        <div class="form__multi-field">
+          <tui-input-password formControlName="password">
+            {{"registration.inputs.password" | translate}}
+            <input autocomplete="on" tuiTextfield/>
+          </tui-input-password>
+          <tui-error formControlName="password" [error]="[] | tuiFieldError | async"></tui-error>
+        </div>
+      </div>
+      <div class="form__row">
+        <div class="form__multi-field">
+          <tui-input-password formControlName="confirmPassword">
+            {{"registration.inputs.confirmPassword" | translate}}
+            <input autocomplete="on" tuiTextfield/>
+          </tui-input-password>
+          <tui-error formControlName="confirmPassword" [error]="[] | tuiFieldError | async"></tui-error>
+        </div>
+      </div>
+      <div class="form__buttons">
+        <button size="l" tuiButton type="submit" [disabled]="!registerForm.valid" class="form__button">{{"registration.inputs.button" | translate}}</button>
+      </div>
+      <div class="login">{{"registration.login" | translate}} <a class="link" routerLink="/auth/login">{{"registration.link" | translate}}</a></div>
+    </div>
+  </div>
+</form>

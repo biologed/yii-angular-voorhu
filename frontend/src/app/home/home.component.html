@@ -1,0 +1,178 @@
+<section class="menu">
+  <div class="logo">
+    <a routerLink="/"><app-svg-logo></app-svg-logo></a>
+    <a target="_blank" href="https://discord.gg/6438KrNr38" tuiLink class="link">Discord</a>
+    <div *ngIf="isLogin$ | async; else templateLogout">
+      <a href="/auth/logout" tuiLink class="contact">Logout</a>
+    </div>
+    <ng-template #templateLogout>
+      <a routerLink="/auth/login" tuiLink class="contact">Login</a>
+    </ng-template>
+    <app-language-switcher></app-language-switcher>
+  </div>
+</section>
+<section class="header">
+  <div class="offer">
+    <div class="title__container">
+      <p>{{ "header.subtitle" | translate }}</p>
+      <h1 class="mb-2">{{ "header.title" | translate }}</h1>
+      <div class="links__container">
+        <a class="link" href="#slider"><span>{{ "header.discover" | translate }}</span></a>
+        <a class="link" href="#pricing"><span>{{ "header.pricing" | translate }}</span></a>
+      </div>
+    </div>
+  </div>
+  <picture>
+    <img alt="" ngSrc="/assets/media/output.jpg" height="1152" width="2048">
+  </picture>
+  <div class="img__break"></div>
+</section>
+<section class="slider" id="slider">
+  <div class="slider__container">
+    <app-swiper></app-swiper>
+  </div>
+</section>
+<section class="faq">
+  <div class="container">
+    <div class="title">
+      <h2>
+        <p>{{"faq.title" | translate}}</p>
+        <strong>
+          <p>{{"faq.subtitle" | translate}}</p>
+        </strong>
+      </h2>
+    </div>
+    <ul>
+      <li>
+        <button class="head" (click)="toggleNavigation('voorhu', $event)">
+          <span>{{"faq.first.title" | translate}}</span>
+          <tui-svg src="tuiIconChevronDownLarge" class="icon" [class.icon_rotated]="(navigationState['voorhu'] === 'active')"></tui-svg>
+        </button>
+        <div [@toggleHeight]="navigationState['voorhu']" class="desc">
+          <p>
+            {{"faq.first.desc1" | translate}}
+            <br><br>
+            {{"faq.first.desc2" | translate}}
+            <br>
+            {{"faq.first.desc3" | translate}}
+            <br>
+            {{"faq.first.desc4" | translate}}
+          </p>
+        </div>
+      </li>
+      <li>
+        <button class="head" (click)="toggleNavigation('adscorelite', $event)">
+          <span>{{"faq.second.title" | translate}}</span>
+          <tui-svg src="tuiIconChevronDownLarge" class="icon" [class.icon_rotated]="(navigationState['adscorelite'] === 'active')"></tui-svg>
+        </button>
+        <div [@toggleHeight]="navigationState['adscorelite']" class="desc">
+          <p>
+            {{"faq.second.desc1" | translate}}
+            <br><br>
+            {{"faq.second.desc2" | translate}}
+            <br>
+            {{"faq.second.desc3" | translate}}
+            <br>
+            <a href="https://boosty.to/voorhu">https://boosty.to/voorhu</a>
+          </p>
+        </div>
+      </li>
+    </ul>
+  </div>
+</section>
+<section class="content" id="pricing">
+  <div class="img__break"></div>
+  <div class="offer">
+    <div class="title__container">
+      <p>{{"content.title" | translate}}</p>
+      <h1>{{"content.subtitle" | translate}}</h1>
+    </div>
+    <div class="pricing">
+      <div class="block">
+        <div class="content">
+          <div class="title">{{"content.first.title" | translate}}</div>
+          <h2 class="price">
+            {{"content.first.price" | translate}}
+          </h2>
+          <div class="list">
+            <div class="item"><tui-svg src="tuiIconCheck" class="icon"></tui-svg>{{"content.first.item1" | translate}}</div>
+            <div class="item"><tui-svg src="tuiIconCheck" class="icon"></tui-svg>{{"content.first.item2" | translate}}</div>
+            <div class="item"><tui-svg src="tuiIconClose" class="icon"></tui-svg>{{"content.first.item3" | translate}}</div>
+            <div class="item"><tui-svg src="tuiIconClose" class="icon"></tui-svg>{{"content.first.item4" | translate}}</div>
+            <div class="item"><tui-svg src="tuiIconClose" class="icon"></tui-svg>{{"content.first.item5" | translate}}</div>
+            <div class="item"><tui-svg src="tuiIconClose" class="icon"></tui-svg>{{"content.first.item6" | translate}}</div>
+          </div>
+          <a class="link" href="https://github.com/voorhu/adscorelite/releases" target="_blank"><span>{{"content.first.button" | translate}}</span></a>
+        </div>
+      </div>
+      <div class="block">
+        <div class="content">
+          <div class="title">{{"content.second.title" | translate}}</div>
+          <h2 class="price">
+            {{"content.second.price" | translate}}<div class="currency">₽</div>
+          </h2>
+          <div class="list">
+            <div class="item"><tui-svg src="tuiIconCheck" class="icon"></tui-svg>{{"content.second.item1" | translate}}</div>
+            <div class="item"><tui-svg src="tuiIconCheck" class="icon"></tui-svg>{{"content.second.item2" | translate}}</div>
+            <div class="item"><tui-svg src="tuiIconCheck" class="icon"></tui-svg>{{"content.second.item3" | translate}}</div>
+            <div class="item"><tui-svg src="tuiIconCheck" class="icon"></tui-svg>{{"content.second.item4" | translate}}</div>
+            <div class="item"><tui-svg src="tuiIconCheck" class="icon"></tui-svg>{{"content.second.item5" | translate}}</div>
+            <div class="item"><tui-svg src="tuiIconCheck" class="icon"></tui-svg>{{"content.second.item6" | translate}}</div>
+            <div class="item"><tui-svg src="tuiIconCheck" class="icon"></tui-svg>{{"content.second.item7" | translate}}</div>
+            <div class="item"><tui-svg src="tuiIconCheck" class="icon"></tui-svg>{{"content.second.item8" | translate}}</div>
+          </div>
+          <a class="link _disabled" href="#" target="_blank"><span>{{"content.second.button" | translate}}</span></a>
+        </div>
+      </div>
+      <div class="block">
+        <div class="content">
+          <div class="title">{{"content.third.title" | translate}}</div>
+          <h2 class="price">
+            {{"content.third.price" | translate}}
+          </h2>
+          <div class="list">
+            <div class="item"><tui-svg src="tuiIconCheck" class="icon"></tui-svg>{{"content.third.item1" | translate}}</div>
+            <div class="item"><tui-svg src="tuiIconCheck" class="icon"></tui-svg>{{"content.third.item2" | translate}}</div>
+            <div class="item"><tui-svg src="tuiIconCheck" class="icon"></tui-svg>{{"content.third.item3" | translate}}</div>
+            <div class="item"><tui-svg src="tuiIconCheck" class="icon"></tui-svg>{{"content.third.item4" | translate}}</div>
+            <div class="item"><tui-svg src="tuiIconCheck" class="icon"></tui-svg>{{"content.third.item5" | translate}}</div>
+          </div>
+          <a class="link" href="https://discord.gg/6438KrNr38" target="_blank"><span>{{"content.third.button" | translate}}</span></a>
+        </div>
+      </div>
+    </div>
+    <div class="discord">
+      <h2>{{"content.desc.title" | translate}}</h2>
+      <h2>{{"content.desc.before" | translate}} <a href="https://boosty.to/voorhu" target="_blank">{{"content.desc.link" | translate}}</a> {{"content.desc.after" | translate}}</h2>
+      <div class="container">
+        <a class="link boosty" href="https://boosty.to/voorhu" target="_blank">
+          <img alt="boosty" src="/assets/media/boosty.svg">
+          <span>
+            <strong ngxCountAnimation="{{ boostyTotalMembersCount$ | async }}" detectLayoutChanges="true"></strong>
+            {{"content.boostySubs" | translate}}
+          </span>
+        </a>
+        <a class="link" href="https://discord.gg/6438KrNr38" target="_blank">
+          <img alt="discord" src="/assets/media/discord.svg">
+          <span>
+            <strong ngxCountAnimation="{{ discordTotalMembersCount$ | async }}" detectLayoutChanges="true"></strong>
+            {{"content.discordOnline" | translate}}
+          </span>
+        </a>
+      </div>
+    </div>
+  </div>
+  <picture>
+    <img alt="output" ngSrc="/assets/media/output.jpg" height="1152" width="2048">
+  </picture>
+</section>
+<section class="footer">
+  <div class="conteiner">
+    <a target="_blank" href="https://boosty.to/voorhu" tuiLink class="icon"><app-svg-boosty></app-svg-boosty></a>
+    <a target="_blank" href="https://discord.gg/6438KrNr38" tuiLink class="icon"><app-svg-discord></app-svg-discord></a>
+    <a target="_blank" href="https://github.com/voorhu/" tuiLink class="icon"><app-svg-github></app-svg-github></a>
+  </div>
+</section>
+<section class="anchor">
+  <a target="_blank" href="https://drive.google.com/viewerng/viewer?url=https://voorhu.com/assets/media/policy-ru.pdf" tuiLink class="policy">{{"policy" | translate}}</a>
+</section>

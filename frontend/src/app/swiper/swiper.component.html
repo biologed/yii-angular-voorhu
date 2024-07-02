@@ -1,0 +1,11 @@
+<swiper-container #swiperRef appSwiper init="false" class="swiper">
+  <swiper-slide class="swiper-slide" *ngFor="let slide of slides">
+    <div class="swiper-content">
+      <img src="{{slide.src}}" alt="{{slide.title | translate}}"/>
+      <div class="swipper-wrapper">
+        <div class="swiper-title">{{slide.title | translate}}</div>
+        <div class="swiper-desc">{{slide.desc | translate}}</div>
+      </div>
+    </div>
+  </swiper-slide>
+</swiper-container>

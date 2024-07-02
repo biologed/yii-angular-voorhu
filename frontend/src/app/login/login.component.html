@@ -1,0 +1,29 @@
+<form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+  <div class="row">
+    <div class="col_8">
+      <h3 class="form__header">{{"login.title" | translate}}</h3>
+      <div class="form__field-note">{{"login.subtitle" | translate}}</div>
+      <div class="form__row">
+        <tui-input formControlName="username">
+          {{"login.inputs.login" | translate}}
+          <input autocomplete="on" tuiTextfield/>
+        </tui-input>
+        <tui-error formControlName="username" [error]="[] | tuiFieldError | async"></tui-error>
+      </div>
+      <div class="form__row">
+        <div class="form__multi-field">
+          <tui-input-password formControlName="password">
+            {{"login.inputs.password" | translate}}
+            <input autocomplete="on" tuiTextfield/>
+          </tui-input-password>
+          <tui-error formControlName="password" [error]="[] | tuiFieldError | async"></tui-error>
+        </div>
+      </div>
+      <div class="form__buttons">
+        <button size="l" tuiButton type="submit" [disabled]="!loginForm.valid" class="form__button">{{"login.inputs.button" | translate}}</button>
+        <a href="https://www.epicgames.com/id/authorize?client_id=xyza7891aObTJltvrMm4zvoackvCDsFU&response_type=code&scope=basic_profile+email" class="epic"><app-svg-epic></app-svg-epic>Epic Games</a>
+      </div>
+      <div class="registration">{{"login.registration" | translate}} <a class="link" routerLink="/auth/registration">{{"login.link" | translate}}</a></div>
+    </div>
+  </div>
+</form>

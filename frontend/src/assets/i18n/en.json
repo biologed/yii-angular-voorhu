@@ -1,0 +1,118 @@
+{
+  "header": {
+    "title": "A PROVEN WAY TO SELL MORE",
+    "subtitle": "UNREAL ENGINE PLUGINS BY VOORHU",
+    "discover": "Discover",
+    "pricing": "Pricing"
+  },
+  "slider": {
+    "first": {
+      "title": "Ready for Unreal Engine 5",
+      "desc": "Keeping up with the times - say NO to old technologies! Each part of the plugin is optimized to work with Unreal Engine 5."
+    },
+    "second": {
+      "title": "Yandex SDK 7",
+      "desc": "We use the full power of the latest SDK from Yandex - we don't use outdated libraries, and we don't advise you not to. Every part of the plugin is maximally optimized to work as fast as possible for all users."
+    },
+    "third": {
+      "title": "Affordable Price",
+      "desc": "A lot of people are trying to stop us! But we don't cry to moms like other plugin developers! We rise to the occasion and shove our price down their throats! Why are we doing this? FOR DEMOCRACY!"
+    },
+    "fourth": {
+      "title": "Our Ideology",
+      "desc": "Our ideology is simple - give users an opportunity to earn more and enthusiasts a powerful mobile app development tool."
+    },
+    "fifth": {
+      "title": "Support",
+      "desc": "We are actively developing our community, we are in touch with you on any issue, we will support you if there are difficulties, come join us!"
+    }
+  },
+  "faq": {
+    "title": "Frequently asked",
+    "subtitle": "questions",
+    "first": {
+      "title": "Where does VOORHU begin?",
+      "desc1": "Our team consists of three people. Each of us is engaged in completely different projects, but we decided to join forces to create auxiliary software that would facilitate our work.",
+      "desc2": "And so came our first ADSCore Lite plugin for easy integration of Yandex ads into Android mobile apps in Unreal Engine.",
+      "desc3": "This plugin is now available to everyone!",
+      "desc4": "We plan to create many more useful and convenient tools for Unreal Engine developers and not only."
+    },
+    "second": {
+      "title": "What is ADSCore Lite?",
+      "desc1": "In 2023, the VOORHU team released their debut project, namely a plugin for Unreal Engine that allows you to monetize your game in two clicks, through the addition of the Yandex advertising network.",
+      "desc2": "The name of the plugin is ADSCore Lite and it is available absolutely free!",
+      "desc3": "Download the plugin and learn more about our team at the link:"
+    }
+  },
+  "content": {
+    "title": "10 000+ downloads Voorhu plugins",
+    "subtitle": "Join a growing community of enthusiasts",
+    "desc": {
+      "title": "Want to know more about Voorhu plugins?",
+      "before": "Follow our",
+      "link": "posts",
+      "after": "on Boosty"
+    },
+    "discordOnline": "Members",
+    "boostySubs": "Subscribers",
+    "first": {
+      "title": "ADSCORE LITE",
+      "price": "FREE",
+      "button": "Download",
+      "item1": "Commercial use",
+      "item2": "Interstitial Advertising",
+      "item3": "Startup Advertising",
+      "item4": "Banner Advertising",
+      "item5": "Rewarded Video Advertising",
+      "item6": "Advertising Mediation"
+    },
+    "second": {
+      "title": "ADSCORE PRO",
+      "price": "4999",
+      "button": "Buy",
+      "item1": "Commercial use",
+      "item2": "Interstitial Advertising",
+      "item3": "Startup Advertising",
+      "item4": "Banner Advertising",
+      "item5": "Rewarded Video Advertising",
+      "item6": "Advertising Mediation",
+      "item7": "Individual support",
+      "item8": "Access to Voorhu Plugin previews"
+    },
+    "third": {
+      "title": "ADSCORE PRO",
+      "price": "N / A",
+      "button": "Contact us",
+      "item1": "Commercial use",
+      "item2": "Access to Voorhu Plugin previews",
+      "item3": "C++ functions support",
+      "item4": "Discord dev brench access",
+      "item5": "Full source code access"
+    }
+  },
+  "policy": "Privacy Policy",
+  "login": {
+    "title": "Welcome home",
+    "subtitle": "Please login",
+    "inputs": {
+      "login": "Login",
+      "password": "Password",
+      "button": "Sign In"
+    },
+    "registration": "First time on the Voorhu?",
+    "link": "Create an account"
+  },
+  "registration": {
+    "title": "Welcome home",
+    "subtitle": "Create a new account",
+    "inputs": {
+      "login": "Login",
+      "email": "Email",
+      "password": "Password",
+      "confirmPassword": "Confirm password",
+      "button": "Sign Up"
+    },
+    "login": "Already have an account?",
+    "link": "Sign In"
+  }
+}
