@@ -30,7 +30,7 @@ class AppAsset extends AssetBundle
     public $js = (YII_ENV_PROD) ? [
         'runtime.2c07e462d395fbd9.js',
         'polyfills.746955fb3510a002.js',
-        'main.d83fb7c3d0a889a8.js',
+        'main.9dc084de2a744f69.js',
     ] : [
         'runtime.js',
         'polyfills.js',

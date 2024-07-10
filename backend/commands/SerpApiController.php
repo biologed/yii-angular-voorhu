@@ -15,14 +15,6 @@ use yii\console\ExitCode;
 use yii\httpclient\Exception;
 use Symfony\Component\Dotenv\Dotenv;
 
-/**
- * This command echoes the first argument that you have entered.
- *
- * This command is provided as an example for you to learn how to create console commands.
- *
- * @author Qiang Xue <qiang.xue@gmail.com>
- * @since 2.0
- */
 class SerpApiController extends Controller
 {
     /**
@@ -31,19 +23,23 @@ class SerpApiController extends Controller
      */
     public function actionIndex(): int
     {
-        echo "cron service was started";
+        //* * * * * <your-application-folder>/yii cron/cron/run 2 > &1
+        echo "\033[01;31m Cron service was started \033[0m\n";
 
         $dotenv = new Dotenv();
         $dotenv->loadEnv(__DIR__ . '/.env');
 
-        $sql = 'SELECT vs.appId FROM voorhu.vads_stats vs LEFT JOIN voorhu.play_market_info pmi ON vs.appId = pmi.appId WHERE vs.appType = 1 AND pmi.appId IS NULL';
-        $apps = Yii::$app->db->createCommand($sql)->queryAll();
-        foreach ($apps as $app) {
+        $apps = Yii::$app->db->createCommand('SELECT vs.appId FROM voorhu.vads_stats vs LEFT JOIN voorhu.play_market_info pmi ON vs.appId = pmi.appId WHERE vs.appType = :appType AND pmi.appId IS NULL', [
+            ':appType' => 1
+        ])->queryAll();
+        foreach ($apps as $key => $app) {
+            echo "\033[01;33m Process the " . $key . "st application \033[0m\n";
+
             $appId = str_replace("-", ".", $app['appId']);
             $client = new Client();
             $response = $client->createRequest()
                 ->setMethod('GET')
-                ->setUrl('https://serpapi.com/search')
+                ->setUrl($_ENV['APP_SERP_API_URL'])
                 ->setData([
                     'engine' => 'google_play_product',
                     'store' => 'apps',
@@ -52,9 +48,10 @@ class SerpApiController extends Controller
                 ])
                 ->send();
             if ($response->isOk) {
+                echo "\033[01;32m API connection established \033[0m\n";
+
                 $data = $response->data;
-                \Yii::info($data);
-                if (isset($data['search_information']) && $data['search_information']['organic_results_state'] == 'Fully empty') {
+                if (isset($data['search_information']) && $data['search_information']['organic_results_state'] === 'Fully empty') {
                     Yii::$app->db->createCommand()->insert('play_market_info', [
                         'appId' => $app['appId'],
                         'url' => $data['search_metadata']['google_play_product_url'],
@@ -75,9 +72,10 @@ class SerpApiController extends Controller
                     ])->execute();
                 }
             }
+            echo "\033[01;33m Processing of the " . $key . "st application is complete \033[0m\n";
         }
 
-        echo "cron service was finished";
+        echo "\033[01;31m Cron service was finished \033[0m\n";
         return ExitCode::OK;
     }
 }

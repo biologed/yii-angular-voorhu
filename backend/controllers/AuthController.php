@@ -7,23 +7,17 @@ use app\models\Users;
 use Yii;
 use yii\base\InvalidConfigException;
 use yii\base\InvalidRouteException;
-use yii\db\DataReader;
 use yii\db\Exception;
 use yii\filters\Cors;
 use yii\helpers\ArrayHelper;
 use yii\httpclient\Client;
 use yii\rest\ActiveController;
-use yii\web\BadRequestHttpException;
-use yii\web\IdentityInterface;
-use yii\web\Response;
-use app\web\User;
-use yii\web\NotFoundHttpException;
+//use app\web\User;
 use yii\web\ErrorAction;
 
 class AuthController extends ActiveController
 {
     public $modelClass = Users::class;
-    public $enableCsrfValidation = false;
     public function behaviors(): array
     {
         return ArrayHelper::merge(parent::behaviors(), [
@@ -102,12 +96,9 @@ class AuthController extends ActiveController
         }
         throw new \UnhandledMatchError('Unhandled error.');
     }
-
     /**
-     * @throws InvalidRouteException
      * @throws InvalidConfigException
      * @throws \yii\httpclient\Exception
-     * @throws \JsonException
      */
     public function actionGetEpicAccessToken(): false|string
     {
@@ -187,9 +178,7 @@ class AuthController extends ActiveController
             'method' => 'Registration',
         ];
     }
-
     /**
-     * @param string $token
      * @return array
      * @throws Exception
      */

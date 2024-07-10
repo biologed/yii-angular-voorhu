@@ -57,7 +57,7 @@ class ApiController extends ActiveController
         }
 
         Yii::$app->response->format = Response::FORMAT_JSON;
-        return Yii::$app->db->createCommand()->insert('statistics', [
+        return Yii::$app->db->createCommand()->insert('ads_stats', [
             'appId' => $appId,
             'appType' => $appType
         ])->execute();
@@ -68,7 +68,7 @@ class ApiController extends ActiveController
     public function actionTotalCount(): DataReader|array
     {
         Yii::$app->response->format = Response::FORMAT_JSON;
-        return Yii::$app->db->createCommand('SELECT SUM(sumTimesCalled) as sum FROM v_statistics')->queryAll();
+        return Yii::$app->db->createCommand('SELECT SUM(sumTimesCalled) as sum FROM voorhu.vads_stats')->queryAll();
     }
     /**
      * @throws Exception
@@ -76,7 +76,7 @@ class ApiController extends ActiveController
     public function actionAppList(): array
     {
         Yii::$app->response->format = Response::FORMAT_JSON;
-        $list = Yii::$app->db->createCommand('SELECT * FROM v_statistics')->queryAll();
+        $list = Yii::$app->db->createCommand('SELECT * FROM voorhu.vads_stats')->queryAll();
         $appList = [
             'prod' => [],
             'test' => []
@@ -93,19 +93,13 @@ class ApiController extends ActiveController
     /**
      * @throws Exception
      */
-    public function actionRating(): array
+    public function actionAppsRating(): array
     {
-        $sort = strtoupper(Yii::$app->getRequest()->getQueryParam('sort')) ?? 'downloads';
-        $order = (strtoupper(Yii::$app->getRequest()->getQueryParam('order')) === 'ASC') ? ' ASC' : ' DESC';
-        Yii::$app->response->format = Response::FORMAT_JSON;
-        $sql = 'SELECT appId, title, rating, reviews, downloads FROM play_market_info WHERE title <> "not_published" ORDER BY ';
-        switch ($sort) {
-            case 'downloads':
-            case 'rating':
-            case 'reviews':
-            case 'title':
-                $sql .=  $sort . $order;
-        }
-        return Yii::$app->db->createCommand($sql)->queryAll();
+        $order = Yii::$app->getRequest()->getQueryParam('order') ?? "title";
+        $sort = Yii::$app->getRequest()->getQueryParam('sort') === 'ASC' ? 'ASC' : 'DESC';
+        return Yii::$app->db->createCommand('SELECT appId, title, rating, reviews, downloads FROM voorhu.play_market_info WHERE title <> :title ORDER BY :order', [
+            ':title' => 'not_published',
+            ':order' => $order . $sort,
+        ])->queryAll();
     }
 }

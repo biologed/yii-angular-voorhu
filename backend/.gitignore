@@ -36,10 +36,19 @@ tests/_support/_generated
 /vagrant/*
 Vagrantfile
 
+
+codeception.yml
+.bowerrc
+
 /config/*
+/commands/*.env
 
 package-lock.json
 
 .htaccess
 
 migrations/*
+
+/web/*.html
+/web/*.css
+/web/*.map

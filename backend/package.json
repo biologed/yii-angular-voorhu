@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "scripts": {
     "serve": "php yii serve --port=3009",
-    "migrate": "yii migrate"
+    "migrate": "yii migrate",
+    "serpapi": "php yii serp-api"
   },
   "private": true,
   "dependencies": {

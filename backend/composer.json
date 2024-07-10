@@ -17,23 +17,24 @@
         "php": ">=8.2",
         "yiisoft/yii2": "~2.0.50",
         "yiisoft/yii2-bootstrap5": "~2.0.4",
-        "yiisoft/yii2-symfonymailer": "~2.0.4",
+        "yiisoft/yii2-symfonymailer": "~4.0.0",
         "yiisoft/yii2-httpclient": "~2.0.15",
-        "symfony/dotenv": "^7.1.1"
+        "symfony/dotenv": "7.1.1",
+        "yiisoft/yii2-redis": "2.0.18"
     },
     "require-dev": {
         "roave/security-advisories": "dev-latest",
         "yiisoft/yii2-debug": "2.1.25",
         "yiisoft/yii2-gii": "2.2.6",
         "yiisoft/yii2-faker": "2.0.5",
-        "phpunit/phpunit": "10.5.20",
+        "phpunit/phpunit": "11.2.6",
         "codeception/codeception": "5.1.2",
         "codeception/lib-innerbrowser": "4.0.3",
         "codeception/module-asserts": "3.0.0",
-        "codeception/module-yii2": "^1.1.10",
+        "codeception/module-yii2": "1.1.10",
         "codeception/module-filesystem": "3.0.1",
         "codeception/verify": "3.2.0",
-        "symfony/browser-kit": "6.4.8"
+        "symfony/browser-kit": "7.1.1"
     },
     "config": {
         "allow-plugins": {
