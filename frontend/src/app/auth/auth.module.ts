@@ -4,6 +4,7 @@ import {CommonModule, NgOptimizedImage} from '@angular/common';
 import {AuthComponent} from './auth.component';
 import {RouterLink, RouterOutlet} from "@angular/router";
 import {TuiSvgModule} from "@taiga-ui/core";
+
 import {LogoComponent} from "../icons/logo/logo.component";
 
 export const svgIcons = [

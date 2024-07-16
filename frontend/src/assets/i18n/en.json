@@ -95,18 +95,26 @@
     "title": "Welcome home",
     "subtitle": "Please login",
     "inputs": {
-      "login": "Login",
+      "username": "Login",
       "password": "Password",
       "button": "Sign In"
     },
     "registration": "First time on the Voorhu?",
     "link": "Create an account"
   },
+  "epic": {
+    "title": "Welcome home",
+    "subtitle": "Please provide an email address",
+    "inputs": {
+      "email": "Email",
+      "button": "Confirm"
+    }
+  },
   "registration": {
     "title": "Welcome home",
     "subtitle": "Create a new account",
     "inputs": {
-      "login": "Login",
+      "username": "Login",
       "email": "Email",
       "password": "Password",
       "confirmPassword": "Confirm password",

@@ -1,7 +1,7 @@
 import {ChangeDetectionStrategy, Component, Inject, TemplateRef} from '@angular/core';
 import {trigger, state, style, animate, transition} from '@angular/animations';
 import {AuthService} from "../services/auth.service";
-import {Observable} from "rxjs";
+import {Observable, Subscription} from "rxjs";
 import {ActivatedRoute, Router} from "@angular/router";
 import {TuiDialogService} from "@taiga-ui/core";
 import {DiscordService} from "../services/discord.service";
@@ -60,7 +60,7 @@ export class HomeComponent {
             error: err => {
               this.showDialog(err.error.message);
             }
-          })
+          });
         }
       });
     }

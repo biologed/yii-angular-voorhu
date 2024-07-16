@@ -3,6 +3,7 @@ import {HomeComponent} from "./home/home.component";
 import {LoginComponent} from "./login/login.component";
 import {RegistrationComponent} from "./registration/registration.component";
 import {AuthComponent} from "./auth/auth.component";
+import {EpicComponent} from "./epic/epic.component";
 export const routes: Routes = [
   {
     path: '',
@@ -23,6 +24,11 @@ export const routes: Routes = [
         path: 'login',
         component: LoginComponent,
         loadChildren: () => import('./login/login.module').then(m => m.LoginModule),
+      },
+      {
+        path: 'epic',
+        component: EpicComponent,
+        loadChildren: () => import('./epic/epic.module').then(m => m.EpicModule),
       },
       {
         path: 'registration',

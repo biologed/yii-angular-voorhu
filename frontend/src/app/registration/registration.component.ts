@@ -3,10 +3,10 @@ import {AbstractControl, FormBuilder, ValidationErrors, Validators} from '@angul
 import {TuiDialogService} from "@taiga-ui/core";
 import {TuiValidationError} from "@taiga-ui/cdk";
 import {AuthService} from "../services/auth.service";
-import {Router} from "@angular/router";
+import {Subscription} from "rxjs";
 
 const latinCharRegExp = /^[0-9a-zA-Z]+$/;
-const emailRegExp = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+const emailRegExp = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 @Component({
   selector: 'app-registration',
   templateUrl: './registration.component.html',
@@ -30,18 +30,17 @@ export class RegistrationComponent {
   constructor(
     private formBuilder: FormBuilder,
     private authService: AuthService,
-    private router: Router,
-    @Inject(TuiDialogService) private readonly dialogs: TuiDialogService
+    @Inject(TuiDialogService) private readonly dialogs$: TuiDialogService
   ) {
     this.registerForm = this.formBuilder.group({
-      username: ['', [Validators.required, Validators.minLength(5), this.LatinCharValidator]],
+      username: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(16), this.LatinCharValidator]],
       email: ['', [Validators.required, Validators.minLength(5), this.emailValidator]],
       password: ['', [Validators.required, Validators.minLength(5)]],
       confirmPassword: ['', [Validators.required, Validators.minLength(5)]]
     });
   }
   showDialog(label: string | undefined, type?: string): void {
-    this.dialogs.open(label, {
+    this.dialogs$.open(label, {
       label: type || 'Error',
       size: 'm',
     }).subscribe();
@@ -64,7 +63,7 @@ export class RegistrationComponent {
         error: err => {
           this.showDialog(err.error.message);
         }
-      })
+      });
     }
   }
 }

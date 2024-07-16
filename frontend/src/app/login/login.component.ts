@@ -4,6 +4,7 @@ import {TuiDialogService} from "@taiga-ui/core";
 import {TuiValidationError} from "@taiga-ui/cdk";
 import {AuthService} from "../services/auth.service";
 import {Router} from "@angular/router";
+import {Subscription} from "rxjs";
 
 const latinCharRegExp = /^[0-9a-zA-Z]+$/;
 @Component({
@@ -24,16 +25,16 @@ export class LoginComponent  {
     private formBuilder: FormBuilder,
     private authService: AuthService,
     private router: Router,
-    @Inject(TuiDialogService) private readonly dialogs: TuiDialogService
+    @Inject(TuiDialogService) private readonly dialogs$: TuiDialogService
   ) {
     this.loginForm = this.formBuilder.group({
       username: ['', [Validators.required, Validators.minLength(5), this.LatinCharValidator]],
       password: ['', [Validators.required, Validators.minLength(5)]]
     });
   }
-  showDialog(label: string | undefined): void {
-    this.dialogs.open(label, {
-      label: 'Error',
+  showDialog(label: string | undefined, type?: string): void {
+    this.dialogs$.open(label, {
+      label: type || 'Error',
       size: 'm',
     }).subscribe();
   }

@@ -2,35 +2,31 @@
 
 namespace app\controllers;
 
-use app\models\Adsstats;
-
 use Yii;
 use yii\base\InvalidConfigException;
 use yii\filters\Cors;
 use yii\helpers\ArrayHelper;
 use yii\httpclient\Client;
 use yii\httpclient\Exception;
-use yii\rest\ActiveController;
+use yii\rest\Controller;
+use yii\web\BadRequestHttpException;
 use yii\web\Response;
 use yii\web\ErrorAction;
 
-class DiscordController extends ActiveController
+class DiscordController extends Controller
 {
-    public $modelClass = Adsstats::class;
+    public $enableCsrfValidation = false;
     public function behaviors(): array
     {
         return ArrayHelper::merge(parent::behaviors(), [
             'corsFilter' => [
                 'class' => Cors::class,
-                'actions' => [
-                    'incoming' => [
-                        'Origin' => ['*'],
-                        'Access-Control-Request-Method' => ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'HEAD', 'OPTIONS'],
-                        'Access-Control-Request-Headers' => ['*'],
-                        'Access-Control-Allow-Credentials' => null,
-                        'Access-Control-Max-Age' => 86400,
-                        'Access-Control-Expose-Headers' => [],
-                    ],
+                'cors' => [
+                    'Origin' => ['*'],
+                    'Access-Control-Request-Method' => ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'HEAD', 'OPTIONS'],
+                    'Access-Control-Request-Headers' => ['*'],
+                    'Access-Control-Allow-Credentials' => null,
+                    'Access-Control-Max-Age' => 86400,
                 ],
             ],
         ]);
@@ -44,29 +40,36 @@ class DiscordController extends ActiveController
         ];
     }
     /**
+     * @throws BadRequestHttpException
+     */
+    public function beforeAction($action): bool
+    {
+        if (!parent::beforeAction($action)) {
+            return false;
+        }
+        return (YII_ENV_DEV) ? $_SERVER['HTTP_HOST'] === 'localhost:3009' : $_SERVER['HTTP_HOST'] === 'voorhu.com';
+    }
+    /**
      * @throws InvalidConfigException
      * @throws Exception
      */
-    public function actionGetTotalMembersCount(): Response
+    public function actionGetTotalMembers(): Response
     {
-        $response = Yii::$app->response;
-        Yii::$app->response->format = Response::FORMAT_JSON;
         $cache = Yii::$app->cache;
         $totalMembers = $cache->get('discord-total-members');
-        $totalMembersTimestamp = $cache->get('discord-total-members-timestamp');
+        $timestamp = $cache->get('discord-total-members-timestamp');
         if (
-            $totalMembersTimestamp !== false &&
+            $timestamp !== false &&
             $totalMembers !== false &&
-            time() <= $totalMembersTimestamp + 86000
+            time() <= $timestamp + 86000
         ) {
-            $response->data = [
+            Yii::$app->response->data = [
                 'result' => $totalMembers,
-                'timestamp' => $totalMembersTimestamp,
+                'timestamp' => $timestamp,
                 'cached' => true
             ];
-            return $response;
+            return Yii::$app->response;
         }
-
         $client = new Client();
         $request = $client->createRequest()
             ->setMethod('GET')
@@ -76,14 +79,14 @@ class DiscordController extends ActiveController
             $data = $request->data;
             $cache->set('discord-total-members', $data['approximate_member_count'] ?? 0);
             $cache->set('discord-total-members-timestamp', time());
-            $response->data = [
+            Yii::$app->response->data = [
                 'result' => $data['approximate_member_count'] ?? 0
             ];
-            return $response;
+            return Yii::$app->response;
         }
-        $response->data =  [
+        Yii::$app->response->data =  [
             'result' => 0
         ];
-        return $response;
+        return Yii::$app->response;
     }
 }

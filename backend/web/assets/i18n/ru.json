@@ -95,18 +95,26 @@
     "title": "Добро пожаловать",
     "subtitle": "Пожалуйста авторизуйтесь",
     "inputs": {
-      "login": "Логин",
+      "username": "Логин",
       "password": "Пароль",
       "button": "Авторизоваться"
     },
     "registration": "Впервые на Voorhu?",
     "link": "Создать аккаунт"
   },
+  "epic": {
+    "title": "Добро пожаловать",
+    "subtitle": "Пожалуйста, укажите адрес электронной почты",
+    "inputs": {
+      "email": "Почта",
+      "button": "Подтвердить"
+    }
+  },
   "registration": {
     "title": "Добро пожаловать",
     "subtitle": "Создать аккаунт",
     "inputs": {
-      "login": "Логин",
+      "username": "Логин",
       "email": "Почта",
       "password": "Пароль",
       "confirmPassword": "Пароль повторно",

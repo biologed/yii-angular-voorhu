@@ -19,8 +19,6 @@ class AppAsset extends AssetBundle
 {
     public $basePath = '@webroot';
     public $baseUrl = '@web';
-    public $depends = [
-    ];
 
     public $css = (YII_ENV_PROD) ? [
         'styles.97c44a78e04e5fc1.css',
@@ -28,9 +26,9 @@ class AppAsset extends AssetBundle
         'styles.css',
     ];
     public $js = (YII_ENV_PROD) ? [
-        'runtime.2c07e462d395fbd9.js',
+        'runtime.bf316615aeedd302.js',
         'polyfills.746955fb3510a002.js',
-        'main.9dc084de2a744f69.js',
+        'main.665e6963450ad8d8.js',
     ] : [
         'runtime.js',
         'polyfills.js',

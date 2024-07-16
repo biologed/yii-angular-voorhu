@@ -37,7 +37,7 @@ class SerpApiController extends Controller
 
             $appId = str_replace("-", ".", $app['appId']);
             $client = new Client();
-            $response = $client->createRequest()
+            $request = $client->createRequest()
                 ->setMethod('GET')
                 ->setUrl($_ENV['APP_SERP_API_URL'])
                 ->setData([
@@ -47,10 +47,10 @@ class SerpApiController extends Controller
                     'api_key' => $_ENV['APP_SERP_API_KEY']
                 ])
                 ->send();
-            if ($response->isOk) {
+            if ($request->isOk) {
                 echo "\033[01;32m API connection established \033[0m\n";
 
-                $data = $response->data;
+                $data = $request->data;
                 if (isset($data['search_information']) && $data['search_information']['organic_results_state'] === 'Fully empty') {
                     Yii::$app->db->createCommand()->insert('play_market_info', [
                         'appId' => $app['appId'],

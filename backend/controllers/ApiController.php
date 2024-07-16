@@ -4,18 +4,18 @@ namespace app\controllers;
 
 use app\models\Adsstats;
 
+use Throwable;
 use Yii;
 use yii\db\DataReader;
 use yii\db\Exception;
 use yii\filters\Cors;
 use yii\helpers\ArrayHelper;
-use yii\rest\ActiveController;
+use yii\rest\Controller;
 use yii\web\Response;
 use yii\web\ErrorAction;
 
-class ApiController extends ActiveController
+class ApiController extends Controller
 {
-    public $modelClass = Adsstats::class;
     public $enableCsrfValidation = false;
     public function behaviors(): array
     {
@@ -45,22 +45,21 @@ class ApiController extends ActiveController
     }
     /**
      * @throws Exception
+     * @throws Throwable
      */
     public function actionNewPlay(): int
     {
-        $request = Yii::$app->request;
-        $appId = $request->getBodyParam('appId');
-        $appType = $request->getBodyParam('identifier');
-
-        if (!isset($appType, $appId)) {
+        $appId = Yii::$app->request->getBodyParam('appId');
+        $appType = Yii::$app->request->getBodyParam('identifier');
+        if (empty($appType) || empty($appId)) {
             return 0;
         }
-
         Yii::$app->response->format = Response::FORMAT_JSON;
-        return Yii::$app->db->createCommand()->insert('ads_stats', [
-            'appId' => $appId,
-            'appType' => $appType
-        ])->execute();
+        $adsstats = new Adsstats();
+        $adsstats->appId = $appId;
+        $adsstats->appType = $appType;
+        $adsstats->save();
+        return 1;
     }
     /**
      * @throws Exception

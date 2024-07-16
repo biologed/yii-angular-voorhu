@@ -3,13 +3,11 @@ import {CommonModule} from '@angular/common';
 import {ReactiveFormsModule} from "@angular/forms";
 import {RouterLink} from "@angular/router";
 
-import {LoginComponent} from './login.component';
+import {EpicComponent} from './epic.component';
 import {TuiButtonModule, TuiErrorModule} from "@taiga-ui/core";
 import {TuiFieldErrorPipeModule, TuiInputModule, TuiInputPasswordModule} from "@taiga-ui/kit";
 import {TranslateModule} from "@ngx-translate/core";
-import {EpicComponent} from "../icons/epic/epic.component";
 export const svgIcons = [
-  EpicComponent,
 ]
 export const tuiComponents = [
   TuiFieldErrorPipeModule,
@@ -20,16 +18,15 @@ export const tuiComponents = [
 ]
 @NgModule({
   declarations: [
-    LoginComponent
+    EpicComponent
   ],
   imports: [
     CommonModule,
     ReactiveFormsModule,
     RouterLink,
-    EpicComponent,
     TranslateModule,
     ...tuiComponents,
     ...svgIcons,
   ]
 })
-export class LoginModule {}
+export class EpicModule {}

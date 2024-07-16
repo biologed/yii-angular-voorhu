@@ -53,12 +53,31 @@ export class AuthService {
   }
   getStatus(): Observable<boolean> {
     return this.httpClient.get<AuthInterface>(
-      environment.authUrl.stastus,
+      environment.authUrl.status,
       this.httpOptions
     ).pipe(
       map(data=> {
         return data.status
       })
+    );
+  }
+  doEpicLogin(code: string | null) {
+    return this.httpClient.post<AuthInterface>(
+      environment.authUrl.epic.login,
+      {
+        code,
+      },
+      this.httpOptions
+    );
+  }
+  doEpicRegister(email: string, code: string) {
+    return this.httpClient.post<AuthInterface>(
+      environment.authUrl.epic.register,
+      {
+        email,
+        code,
+      },
+      this.httpOptions
     );
   }
 }

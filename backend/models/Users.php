@@ -10,23 +10,26 @@ use yii\web\Response;
 use yii\web\IdentityInterface;
 
 /**
- * This is the model class for table "ads_stats".
+ * This is the model class for table 'ads_users'.
  *
  * @property int $id
  * @property string $email
  * @property string $username
  * @property string $password
  * @property int $status
- * @property string $activateToken
- * @property string $authKey
- * @property string $licenseToken
  * @property string $createdAt
+ * @property string $activationToken
+ * @property string $authKey
+ * @property string $epicAccountId
+ * @property string $epicActivationCode
+ * @property string $licenseToken
  * @property int $isDeleted
  */
 class Users extends ActiveRecord implements IdentityInterface
 {
     public const STATUS_INACTIVE = 0;
     public const STATUS_ACTIVE = 1;
+
     /**
      * {@inheritdoc}
      */
@@ -34,7 +37,6 @@ class Users extends ActiveRecord implements IdentityInterface
     {
         return 'ads_users';
     }
-
     /**
      * Finds an identity by the given ID.
      *
@@ -45,7 +47,6 @@ class Users extends ActiveRecord implements IdentityInterface
     {
         return static::findOne($id);
     }
-
     /**
      * Finds an identity by the given token.
      *
@@ -54,9 +55,8 @@ class Users extends ActiveRecord implements IdentityInterface
      */
     public static function findIdentityByAccessToken($token, $type = null): ?IdentityInterface
     {
-        return static::findOne(['access_token' => $token]);
+        return static::findOne(['authKey' => $token]);
     }
-
     /**
      * @return int current user ID
      */
@@ -64,7 +64,6 @@ class Users extends ActiveRecord implements IdentityInterface
     {
         return $this->id;
     }
-
     /**
      * @return string current user auth key
      */
@@ -72,7 +71,6 @@ class Users extends ActiveRecord implements IdentityInterface
     {
         return $this->authKey;
     }
-
     /**
      * @param string $authKey
      * @return bool if auth key is valid for current user
@@ -81,7 +79,6 @@ class Users extends ActiveRecord implements IdentityInterface
     {
         return $this->getAuthKey() === $authKey;
     }
-
     /**
      * @throws Exception
      */
@@ -89,21 +86,19 @@ class Users extends ActiveRecord implements IdentityInterface
     {
         if (parent::beforeSave($insert)) {
             if ($this->status === 1) {
-                $this->authKey = \Yii::$app->security->generateRandomString();
+                $this->authKey = Yii::$app->security->generateRandomString();
             }
             return true;
         }
         return false;
     }
-
     /**
      * {@inheritdoc}
      */
     public function rules(): array
     {
         return [
-            [['username', 'email', 'password'], 'required'],
-            ['email', 'unique', 'targetClass' => self::class],
+            [['username', 'email'], 'unique', 'targetClass' => self::class],
             [['status', 'isDeleted'], 'integer'],
             [['createdAt'], 'safe'],
         ];

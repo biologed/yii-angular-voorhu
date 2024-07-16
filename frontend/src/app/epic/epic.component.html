@@ -1,0 +1,18 @@
+<form [formGroup]="epicForm" (ngSubmit)="onSubmit()">
+  <div class="row">
+    <div class="col_8">
+      <h3 class="form__header">{{"epic.title" | translate}}</h3>
+      <div class="form__field-note">{{"epic.subtitle" | translate}}</div>
+      <div class="form__row">
+        <tui-input formControlName="email">
+          {{"epic.inputs.email" | translate}}
+          <input autocomplete="on" tuiTextfield/>
+        </tui-input>
+        <tui-error formControlName="email" [error]="[] | tuiFieldError | async"></tui-error>
+      </div>
+      <div class="form__buttons">
+        <button size="l" tuiButton type="submit" [disabled]="!epicForm.valid" class="form__button">{{"epic.inputs.button" | translate}}</button>
+      </div>
+    </div>
+  </div>
+</form>
