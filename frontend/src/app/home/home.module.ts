@@ -15,14 +15,18 @@ import {NgxCountAnimationDirective} from "ngx-count-animation";
 
 //icons
 import {LogoComponent} from "../icons/logo/logo.component";
-import {BoostyComponent} from "../icons/boosty/boosty.component";
 import {DiscordComponent} from "../icons/discord/discord.component";
 import {GithubComponent} from "../icons/github/github.component";
+import {BoostyComponent} from "../icons/boosty/boosty.component";
+import {BoostyWithTextComponent} from "../icons/boosty-with-text/boosty-with-text.component";
+import {DiscordWithTextComponent} from "../icons/discord-with-text/discord-with-text.component";
 export const svgIcons = [
   LogoComponent,
   BoostyComponent,
   DiscordComponent,
   GithubComponent,
+  BoostyWithTextComponent,
+  DiscordWithTextComponent
 ]
 @NgModule({
   declarations: [

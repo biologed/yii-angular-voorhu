@@ -21,14 +21,14 @@ class AppAsset extends AssetBundle
     public $baseUrl = '@web';
 
     public $css = (YII_ENV_PROD) ? [
-        'styles.97c44a78e04e5fc1.css',
+        'styles.1e0028ee942d2d13.css',
     ] : [
         'styles.css',
     ];
     public $js = (YII_ENV_PROD) ? [
-        'runtime.bf316615aeedd302.js',
+        'runtime.0e6e058ad1154643.js',
         'polyfills.746955fb3510a002.js',
-        'main.665e6963450ad8d8.js',
+        'main.3b1c079c06d7721b.js',
     ] : [
         'runtime.js',
         'polyfills.js',

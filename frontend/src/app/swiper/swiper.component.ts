@@ -4,8 +4,8 @@ import {SwiperOptions} from "swiper/types";
 import {Swiper} from "swiper";
 @Component({
   selector: 'app-swiper',
-  templateUrl: './swiper.component.html',
-  styleUrls: ['./swiper.component.less']
+  templateUrl: 'swiper.component.html',
+  styleUrls: ['swiper.component.less']
 })
 export class SwiperComponent implements AfterViewInit {
   @ViewChild('swiperRef', { static: true }) private swiperRef: ElementRef | undefined;
@@ -15,18 +15,19 @@ export class SwiperComponent implements AfterViewInit {
     grabCursor: true,
     pagination: false,
     autoplay: false,
+    centeredSlides: false,
+    spaceBetween: 30,
     breakpoints: {
-      1080: {
+      '@0.75': {
         slidesPerView: 2,
-        spaceBetween: 30,
-        centeredSlides: true,
-        loop: true
+        spaceBetween: 0,
       },
-      2560: {
+      '@1.00': {
+        slidesPerView: 3,
+        spaceBetween: 20,
+      },
+      '@1.50': {
         slidesPerView: 4,
-        spaceBetween: 30,
-        centeredSlides: true,
-        loop: false
       },
     },
   };

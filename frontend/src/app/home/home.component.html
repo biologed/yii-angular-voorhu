@@ -35,12 +35,8 @@
 <section class="faq">
   <div class="container">
     <div class="title">
-      <h2>
-        <p>{{"faq.title" | translate}}</p>
-        <strong>
-          <p>{{"faq.subtitle" | translate}}</p>
-        </strong>
-      </h2>
+      <p>{{"faq.title" | translate}}</p>
+      <p>{{"faq.subtitle" | translate}}</p>
     </div>
     <ul>
       <li>
@@ -146,14 +142,14 @@
       <h2>{{"content.desc.before" | translate}} <a href="https://boosty.to/voorhu" target="_blank">{{"content.desc.link" | translate}}</a> {{"content.desc.after" | translate}}</h2>
       <div class="container">
         <a class="link boosty" href="https://boosty.to/voorhu" target="_blank">
-          <img alt="boosty" src="/assets/media/boosty.svg">
+          <app-svg-boosty-with-text></app-svg-boosty-with-text>
           <span>
             <strong ngxCountAnimation="{{ boostyTotalMembersCount$ | async }}" detectLayoutChanges="true"></strong>
             {{"content.boostySubs" | translate}}
           </span>
         </a>
-        <a class="link" href="https://discord.gg/6438KrNr38" target="_blank">
-          <img alt="discord" src="/assets/media/discord.svg">
+        <a class="link discord" href="https://discord.gg/6438KrNr38" target="_blank">
+          <app-svg-discord-with-text></app-svg-discord-with-text>
           <span>
             <strong ngxCountAnimation="{{ discordTotalMembersCount$ | async }}" detectLayoutChanges="true"></strong>
             {{"content.discordOnline" | translate}}
@@ -167,12 +163,14 @@
   </picture>
 </section>
 <section class="footer">
-  <div class="conteiner">
+  <div class="container">
     <a target="_blank" href="https://boosty.to/voorhu" tuiLink class="icon"><app-svg-boosty></app-svg-boosty></a>
     <a target="_blank" href="https://discord.gg/6438KrNr38" tuiLink class="icon"><app-svg-discord></app-svg-discord></a>
     <a target="_blank" href="https://github.com/voorhu/" tuiLink class="icon"><app-svg-github></app-svg-github></a>
   </div>
+  <div class="anchor">
+    <a target="_blank" href="https://drive.google.com/viewerng/viewer?url=https://voorhu.com/assets/media/policy-ru.pdf" tuiLink class="policy">{{"policy" | translate}}</a>
+  </div>
 </section>
-<section class="anchor">
-  <a target="_blank" href="https://drive.google.com/viewerng/viewer?url=https://voorhu.com/assets/media/policy-ru.pdf" tuiLink class="policy">{{"policy" | translate}}</a>
+<section>
 </section>

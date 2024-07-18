@@ -233,16 +233,13 @@ class AuthController extends Controller
                 $user->epicActivationCode = $code;
                 $user->save();
                 Yii::$app->response->data = [
-                    'success' => true,
+                    'message' => true,
                     'method' => 'EpicAuth',
                 ];
                 return Yii::$app->response;
             }
-            Yii::$app->response->statusCode = 400;
-            Yii::$app->response->data = [
-                'message' => 'This user has already been registered',
-                'method' => 'EpicAuth',
-            ];
+            Yii::$app->user->login($user);
+            Yii::$app->response->statusCode = 200;
             return Yii::$app->response;
         }
         Yii::$app->response->statusCode = 400;

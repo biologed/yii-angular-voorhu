@@ -1,17 +1,16 @@
 import {ChangeDetectionStrategy, Component, Inject, TemplateRef} from '@angular/core';
 import {trigger, state, style, animate, transition} from '@angular/animations';
 import {AuthService} from "../services/auth.service";
-import {Observable, Subscription} from "rxjs";
+import {Observable} from "rxjs";
 import {ActivatedRoute, Router} from "@angular/router";
 import {TuiDialogService} from "@taiga-ui/core";
 import {DiscordService} from "../services/discord.service";
 import {BoostyService} from "../services/boosty.service";
-
 type navigationStateInterface = Record<string, string>;
 @Component({
   selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.less'],
+  templateUrl: 'home.component.html',
+  styleUrls: ['home.component.less'],
   animations: [
     trigger('toggleHeight', [
       state('inactive', style({

@@ -1,13 +1,12 @@
 import {Component, Inject} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
-import {Subscription} from "rxjs";
+import {window} from "rxjs";
 import {AuthService} from "../services/auth.service";
 import {TuiDialogService} from "@taiga-ui/core";
-
 @Component({
   selector: 'app-auth',
-  templateUrl: './auth.component.html',
-  styleUrls: ['./auth.component.less']
+  templateUrl: 'auth.component.html',
+  styleUrls: ['auth.component.less']
 })
 export class AuthComponent {
   public activationCode: string | null;
@@ -24,6 +23,9 @@ export class AuthComponent {
           this.router.navigate(['/auth/login']).then();
         }
         this.authService.doEpicLogin(this.activationCode).subscribe({
+          next: () => {
+            this.router.navigate(['/']).then();
+          },
           error: err => {
             this.showDialog(err.error.message);
           }
@@ -44,4 +46,6 @@ export class AuthComponent {
       }
     });
   }
+
+  protected readonly window = window;
 }

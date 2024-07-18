@@ -1,8 +1,8 @@
 import {AfterViewInit, ChangeDetectionStrategy, Component, Renderer2} from '@angular/core';
 @Component({
   selector: 'app-app',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.less'],
+  templateUrl: 'app.component.html',
+  styleUrls: ['app.component.less'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AppComponent implements AfterViewInit {

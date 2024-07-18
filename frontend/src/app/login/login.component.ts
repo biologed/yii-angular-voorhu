@@ -4,13 +4,11 @@ import {TuiDialogService} from "@taiga-ui/core";
 import {TuiValidationError} from "@taiga-ui/cdk";
 import {AuthService} from "../services/auth.service";
 import {Router} from "@angular/router";
-import {Subscription} from "rxjs";
-
 const latinCharRegExp = /^[0-9a-zA-Z]+$/;
 @Component({
   selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.less'],
+  templateUrl: 'login.component.html',
+  styleUrls: ['login.component.less'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LoginComponent  {

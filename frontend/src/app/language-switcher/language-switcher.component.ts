@@ -1,12 +1,10 @@
 import {Component} from '@angular/core';
-import {
-  TranslateService,
-} from '@ngx-translate/core';
+import {TranslateService} from '@ngx-translate/core';
 import {animate, state, style, transition, trigger} from "@angular/animations";
 @Component({
   selector: 'app-language-switcher',
-  templateUrl: './language-switcher.component.html',
-  styleUrls: ['./language-switcher.component.less'],
+  templateUrl: 'language-switcher.component.html',
+  styleUrls: ['language-switcher.component.less'],
   imports: [],
   animations: [
     trigger('langSwitch', [

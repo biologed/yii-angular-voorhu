@@ -2,7 +2,7 @@ import {Component, Input} from '@angular/core';
 @Component({
   standalone: true,
   selector: 'app-svg-epic',
-  templateUrl: './epic.component.html',
+  templateUrl: 'epic.component.html',
   styleUrls: []
 })
 export class EpicComponent {

@@ -40,7 +40,7 @@ Vagrantfile
 codeception.yml
 .bowerrc
 
-/config/*.env
+/config/*
 /commands/*.env
 
 package-lock.json

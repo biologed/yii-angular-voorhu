@@ -28,6 +28,15 @@ section.menu {
         flex-grow: 1
       }
     }
+    @media (max-width: 512px) {
+      a, app-language-switcher {
+        display: none;
+      }
+      a:first-child {
+        display: block;
+        text-align: center;
+      }
+    }
   }
   .contact {
     height: 42px;
@@ -51,6 +60,7 @@ section.header, section.content {
   overflow: hidden;
   z-index: 10;
   position: relative;
+  margin-top: 84px;
   .offer {
     min-height: 500px;
     justify-content: center;
@@ -74,9 +84,19 @@ section.header, section.content {
         line-height: 1em;
         margin: 0;
       }
+      @media (max-width: 1024px) {
+          h1 {
+            font-size: 3rem;
+          }
+      }
+      @media (max-width: 768px) {
+        h1 {
+          font-size: 2.5rem;
+        }
+      }
       .links__container {
         width: 100%;
-        height: 42px;
+        height: 115px;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -100,6 +120,14 @@ section.header, section.content {
           }
         }
       }
+      @media (max-width: 512px) {
+        .links__container{
+          flex-direction: column;
+          .link:last-child {
+            margin-top: 15px
+          }
+        }
+      }
     }
   }
   @media (min-width: 1080px) {
@@ -110,21 +138,6 @@ section.header, section.content {
   @media (min-width: 1440px) {
     .offer {
       padding: 11rem 0 10rem 0;
-    }
-  }
-  picture {
-    opacity: .6;
-    img {
-      object-fit: cover;
-      width: 100%;
-      height: 100%;
-      z-index: 1;
-      top: 0;
-      left: 0;
-      position: absolute;
-      max-width: 100%;
-      display: block;
-      vertical-align: middle;
     }
   }
   .img__break {
@@ -155,19 +168,23 @@ section.faq {
     width: 100%;
     .title {
       display: flex;
+      flex-direction: column;
       justify-content: center;
+      font-weight: bold;
       text-align: center;
       font-size: 2rem;
       margin: 1rem;
-      h2 {
-        margin: 0;
+      p {
+        margin: 1rem;
+        padding: 0;
       }
-      strong {
+      p:last-child {
         color: var(--tui-primary);
       }
     }
     ul {
-      margin-right: 2rem;
+      padding: 0;
+      margin: 0 2rem;
       li {
         margin-top: 1.25rem;
         background-color: rgb(9, 9, 9);
@@ -187,7 +204,9 @@ section.faq {
           color: #fff;
           border: 0;
           .icon {
-            .transition(transform);
+            transition-property: transform;
+            transition-duration: var(--tui-duration, 300ms);
+            transition-timing-function: ease-in-out;
             margin-left: 0.25rem;
             &_rotated {
               transform: rotate(180deg);
@@ -206,6 +225,11 @@ section.faq {
         }
       }
     }
+    @media (max-width: 1024px) {
+      ul {
+        margin: 0 1rem;
+      }
+    }
   }
 }
 section.content {
@@ -219,7 +243,7 @@ section.content {
       }
       h1 {
         line-height: 1.3;
-        font-size: 3.375rem;
+        font-size: 2.375rem;
         margin-bottom: 2.5rem;
       }
     }
@@ -301,6 +325,18 @@ section.content {
       }
     }
   }
+  @media (max-width: 1024px) {
+    .pricing {
+      flex-direction: column;
+      height: max-content;
+      .block {
+        height: 456px;
+        &:nth-child(2) {
+          height: 456px;
+        }
+      }
+    }
+  }
   .discord {
     display: flex;
     margin-top: 6rem;
@@ -313,20 +349,28 @@ section.content {
       display: flex;
       .link {
         display: flex;
+        flex-direction: row;
         font-size: 16px;
         justify-content: space-around;
         align-items: center;
         width: 340px;
         height: 75px;
-        background-color: var(--tui-primary);
         border-radius: var(--tui-radius-m);
         text-decoration: none;
         margin: 3rem 1rem 0 1rem;
         &.boosty {
           background-color: var(--boosy-primary);
         }
+        &.discord {
+          background-color: var(--discrod-primary);
+        }
         span {
           color: #fff;
+        }
+      }
+      @media (max-width: 1024px) {
+        .link {
+          margin: 2rem 1rem 0 1rem;
         }
       }
     }
@@ -334,6 +378,15 @@ section.content {
       margin: 0;
       line-height: 43px;
       font-size: 36px;
+      text-align: center;
+    }
+  }
+  @media (max-width: 1024px) {
+    .discord {
+      margin: 3rem 1rem;
+      .container {
+        flex-direction: column;
+      }
     }
   }
   .img__break {
@@ -342,11 +395,13 @@ section.content {
 }
 section.footer {
   display: flex;
+  flex-direction: column;
   justify-content: center;
+  align-items: center;
   background-color: rgb(42, 40, 41);
-  .conteiner {
+  .container {
     display: flex;
-    margin: 40px 0 40px;
+    margin: 40px 0 20px;
     .icon {
       margin: 0 10px;
       background-color: #181818;
@@ -360,35 +415,31 @@ section.footer {
       flex-direction: row;
     }
   }
-}
-section.anchor {
-  position: fixed;
-  bottom: 0;
-  right: 0;
-  z-index: 1000;
-  a {
-    color: #fff;
-  }
-  .policy {
-    height: var(--tui-height-s);
-    transition-duration: .3s;
-    transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
-    transition-timing-function: cubic-bezier(.4,0,.2,1);
-    text-decoration: none;
-    background: var(--tui-clear-inverse);
-    border-radius: 6.25rem;
-    justify-content: center;
-    align-items: center;
-    display: inline-flex;
-    position: relative;
-    margin: 0 .75rem .75rem;
-    font: var(--tui-font-text-s);
-    padding: 0 var(--tui-padding, .75rem);
-    &:hover {
-      background: var(--tui-clear-inverse-hover);
+  .anchor {
+    a {
+      color: #fff;
     }
-    &:active {
-      background: var(--tui-clear-inverse-active);
+    .policy {
+      height: var(--tui-height-s);
+      transition-duration: .3s;
+      transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
+      transition-timing-function: cubic-bezier(.4,0,.2,1);
+      text-decoration: none;
+      background: var(--tui-clear-inverse);
+      border-radius: 6.25rem;
+      justify-content: center;
+      align-items: center;
+      display: inline-flex;
+      position: relative;
+      margin: 0 .75rem .75rem;
+      font: var(--tui-font-text-s);
+      padding: 0 var(--tui-padding, .75rem);
+      &:hover {
+        background: var(--tui-clear-inverse-hover);
+      }
+      &:active {
+        background: var(--tui-clear-inverse-active);
+      }
     }
   }
 }

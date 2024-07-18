@@ -3,14 +3,12 @@ import {AbstractControl, FormBuilder, ValidationErrors, Validators} from '@angul
 import {TuiDialogService} from "@taiga-ui/core";
 import {TuiValidationError} from "@taiga-ui/cdk";
 import {AuthService} from "../services/auth.service";
-import {Subscription} from "rxjs";
 import {ActivatedRoute, Router} from "@angular/router";
-
 const emailRegExp = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 @Component({
   selector: 'app-epic',
-  templateUrl: './epic.component.html',
-  styleUrls: ['./epic.component.less'],
+  templateUrl: 'epic.component.html',
+  styleUrls: ['epic.component.less'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class EpicComponent {

@@ -1,12 +1,9 @@
-::ng-deep [tuiWrapper][data-appearance=textfield] {
-  background: var(--tui-clear-inverse);
-}
 .row {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   .col_8 {
-    width: 66.66666667%;
+    width: 66%;
     padding-left: 1.5rem;
     padding-right: 1.5rem;
     box-sizing: border-box;
@@ -28,6 +25,9 @@
     .form__buttons {
       display: flex;
       margin-top: 2rem;
+      button {
+        width: 200px;
+      }
       a.epic {
         margin-left: 1rem;
         height: var(--tui-height-l);
@@ -41,7 +41,7 @@
         align-items: center;
         display: inline-flex;
         position: relative;
-        width: 180px;
+        width: 200px;
         &:hover {
           background: #353535 !important;
         }
@@ -54,12 +54,38 @@
         }
       }
     }
+    @media (max-width: 1024px) {
+      .form__buttons {
+        display: flex;
+        flex-direction: column;
+        button {
+          width: 100%;
+        }
+        a.epic {
+          margin-left: 0;
+          margin-top: 1rem;
+          width: 100%;
+        }
+      }
+    }
     .registration {
       margin-top: 1rem;
       font: var(--tui-font-heading-6);
       .link {
         color: var(--tui-primary);
       }
+    }
+  }
+  @media (max-width: 512px) {
+    .col_8 {
+      width: 100%;
+    }
+  }
+  @media (min-width: 1024px) {
+    .col_8 {
+      width: 100%;
+      padding-left: 3rem;
+      padding-right: 3rem;
     }
   }
 }

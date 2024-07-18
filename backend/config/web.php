@@ -98,6 +98,8 @@ $config = [
                 //Для Angular
                 '/' => 'site/index',
                 '<controller:(auth)>/<action:(login|registration|epic)>' => 'site/index',
+                '<controller:(api)>/ads-stat/<action:(new-play|total-count|app-list|apps-rating)>' => '<controller>/<action>',
+                '<controller:(api)>/<action:(new-play|total-count|app-list|apps-rating)>' => '<controller>/<action>',
             ],
         ],
     ],
