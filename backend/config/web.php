@@ -97,6 +97,7 @@ $config = [
                 '<controller:(auth)>/<action:(sign-in|sign-up|logout|status|activation|get-access-token-from-epic|sign-up-from-epic)>' => '<controller>/<action>',
                 //Для Angular
                 '/' => 'site/index',
+                '/account' => 'site/index',
                 '<controller:(auth)>/<action:(login|registration|epic)>' => 'site/index',
                 '<controller:(api)>/ads-stat/<action:(new-play|total-count|app-list|apps-rating)>' => '<controller>/<action>',
                 '<controller:(api)>/<action:(new-play|total-count|app-list|apps-rating)>' => '<controller>/<action>',

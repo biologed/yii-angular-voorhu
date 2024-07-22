@@ -58,11 +58,7 @@ class BoostyController extends Controller
         $cache = Yii::$app->cache;
         $totalMembers = $cache->get('boosty-total-members');
         $timestamp = $cache->get('boosty-total-members-timestamp');
-        if (
-            $timestamp !== false &&
-            $totalMembers !== false &&
-            time() <= $timestamp + 86000
-        ) {
+        if ($timestamp !== false && $totalMembers !== false && time() <= $timestamp + 86000) {
             Yii::$app->response->data = [
                 'result' => $totalMembers,
                 'timestamp' => $timestamp,

@@ -51,26 +51,26 @@ class AuthController extends Controller
         Yii::$app->response->statusCode = 400;
         if (!isset($username, $password)) {
             return [
-                'message' => 'Please enter the username and password.',
+                'message' => 'errors.login.err_empty_usr_pass',
                 'method' => 'Login',
             ];
         }
         $user = Users::findOne(['username' => $username]);
         if (!$user) {
             return [
-                'message' => 'Users not found. Please retry.',
+                'message' => 'errors.login.err_usr_nf',
                 'method' => 'Login',
             ];
         }
         if (!Yii::$app->getSecurity()->validatePassword($password, $user->password)) {
             return [
-                'message' => 'Incorrect password.',
+                'message' => 'errors.login.err_inc_pass',
                 'method' => 'Login',
             ];
         }
         if ($user->status === Users::STATUS_INACTIVE) {
             return [
-                'message' => 'You need to activate your account.',
+                'message' => 'errors.login.err_need_act',
                 'method' => 'Login',
             ];
         }
@@ -91,6 +91,7 @@ class AuthController extends Controller
      */
     public function actionSignUp(): Response
     {
+        $language = Yii::$app->request->getBodyParam('language');
         $username = Yii::$app->request->getBodyParam('username');
         $email = Yii::$app->request->getBodyParam('email');
         $password = Yii::$app->getSecurity()->generatePasswordHash(Yii::$app->request->getBodyParam('password'));
@@ -100,21 +101,20 @@ class AuthController extends Controller
             Yii::$app->response->statusCode = 400;
             if ($user->username === $username) {
                 Yii::$app->response->data = [
-                    'message' => 'Account with this username is already registered.',
+                    'message' => 'errors.registration.err_alr_reg_with_usr',
                     'method' => 'Registration',
                 ];
                 return Yii::$app->response;
             }
             if ($user->email === $email) {
                 Yii::$app->response->data = [
-                    'message' => 'Account with this email is already registered.',
-                    'env' => 'Account with this email is already registered.',
+                    'message' => 'errors.registration.err_alr_reg_with_email',
                     'method' => 'Registration',
                 ];
                 return Yii::$app->response;
             }
             Yii::$app->response->data = [
-                'message' => 'Account already registered.',
+                'message' => 'errors.registration.err_alr_reg',
                 'method' => 'Registration',
             ];
             return Yii::$app->response;
@@ -125,14 +125,22 @@ class AuthController extends Controller
         $user->password = $password;
         $user->activationToken = $token;
         $user->save();
+
+        $mailSubject = 'Account activation';
+        $mailBody = 'Please activate your account by clicking the following link: ';
+        if ($language === 'ru') {
+            $mailSubject = 'Активация аккаунта';
+            $mailBody = 'Пожалуйста, активируйте свой аккаунт, перейдя по следующей ссылке: ';
+        }
+
         Yii::$app->mailer->compose()
             ->setFrom(['super.gird2012@yandex.ru' => 'voorhu.com'])
             ->setTo($email)
-            ->setSubject('Account activation')
-            ->setTextBody('Please activate your account by clicking the following link: ' . Yii::$app->urlManager->createAbsoluteUrl(['activation', 'token' => $token]))
+            ->setSubject($mailSubject)
+            ->setTextBody($mailBody . Yii::$app->urlManager->createAbsoluteUrl(['activation', 'token' => $token]))
             ->send();
         Yii::$app->response->data = [
-            'message' => 'Please check your email for activation instructions.',
+            'message' => 'errors.registration.suc_chk_email',
             'method' => 'Registration',
         ];
         return Yii::$app->response;
@@ -160,11 +168,18 @@ class AuthController extends Controller
      */
     public function actionActivation(): Response
     {
-        $token = Yii::$app->request->getBodyParam('token');
         Yii::$app->response->statusCode = 400;
-        if ($token === '' && strlen($token) !== 32) {
+        if (Yii::$app->user->identity->status === Users::STATUS_ACTIVE) {
             Yii::$app->response->data = [
-                'message' => 'Invalid activation token.',
+                'message' => 'errors.activation.err_inv_usr_status',
+                'method' => 'Activation',
+            ];
+            return Yii::$app->response;
+        }
+        $token = Yii::$app->request->getBodyParam('token');
+        if (strlen($token) !== 32) {
+            Yii::$app->response->data = [
+                'message' => 'errors.activation.err_inv_act_token',
                 'method' => 'Activation',
             ];
             return Yii::$app->response;
@@ -172,14 +187,14 @@ class AuthController extends Controller
         $user = Users::findOne(['activationToken' => $token]);
         if (!$user) {
             Yii::$app->response->data = [
-                'message' => 'Account activation token not found.',
+                'message' => 'errors.activation.err_token_nf',
                 'method' => 'Activation',
             ];
             return Yii::$app->response;
         }
         if ($user->status === Users::STATUS_ACTIVE) {
             Yii::$app->response->data = [
-                'message' => 'Your account has already been activated.',
+                'message' => 'errors.activation.err_alr_act',
                 'method' => 'Activation',
             ];
             return Yii::$app->response;
@@ -190,7 +205,7 @@ class AuthController extends Controller
         Yii::$app->response->statusCode = 200;
         Yii::$app->response->data = [
             'status' => true,
-            'message' => 'The account has been successfully activated.',
+            'message' => 'errors.activation.suc_usr_act',
             'method' => 'Activation',
         ];
         return Yii::$app->response;
@@ -206,7 +221,6 @@ class AuthController extends Controller
     public function actionGetAccessTokenFromEpic(): Response
     {
         $code = Yii::$app->request->getBodyParam('code');
-
         $client = new Client();
         $request = $client->createRequest()
             ->setMethod('POST')
@@ -244,7 +258,7 @@ class AuthController extends Controller
         }
         Yii::$app->response->statusCode = 400;
         Yii::$app->response->data = [
-            'message' => 'The code is invalid.',
+            'message' => 'errors.epicauth.err_inv_code',
             'method' => 'EpicAuth',
         ];
         return Yii::$app->response;
@@ -256,6 +270,7 @@ class AuthController extends Controller
      */
     public function actionSignUpFromEpic(): Response
     {
+        $language = Yii::$app->request->getBodyParam('language');
         $email = Yii::$app->request->getBodyParam('email');
         $code = Yii::$app->request->getBodyParam('code');
         $user = Users::findOne(['email' => $email]);
@@ -264,29 +279,37 @@ class AuthController extends Controller
         if ($user) {
             $epicUser?->delete();
             Yii::$app->response->data = [
-                'message' => 'A user with this email address already exists.',
+                'message' => 'errors.epicauth.err_usr_alr_exs',
                 'method' => 'EpicAuth',
             ];
             return Yii::$app->response;
         }
         if (!$epicUser) {
             Yii::$app->response->data = [
-                'message' => 'The code has been deleted.',
+                'message' => 'errors.epicauth.err_code_del',
                 'method' => 'EpicAuth',
             ];
             return Yii::$app->response;
         }
         $epicUser->email = $email;
         $epicUser->save();
+
+        $mailSubject = 'Account activation';
+        $mailBody = 'You have used the Epic Games registration form, in the future use the Epic Games button on the website login form to authorise yourself<br><br>Please activate your account by clicking the following link: ';
+        if ($language === 'ru') {
+            $mailSubject = 'Активация аккаунта';
+            $mailBody = 'Вы использовали форму регистрации Epic Games, в будущем используйте кнопку Epic Games в форме входа на сайт для авторизации<br><br>Пожалуйста, активируйте свой аккаунт, перейдя по следующей ссылке: ';
+        }
+
         Yii::$app->mailer->compose()
             ->setFrom(['super.gird2012@yandex.ru' => 'voorhu.com'])
             ->setTo($email)
-            ->setSubject('Account activation')
-            ->setHtmlBody('You have used the Epic Games registration form, in the future use the Epic Games button on the website login form to authorise yourself<br><br>Please activate your account by clicking the following link: ' . Yii::$app->urlManager->createAbsoluteUrl(['activation', 'token' => $epicUser->activationToken]))
+            ->setSubject($mailSubject)
+            ->setHtmlBody($mailBody . Yii::$app->urlManager->createAbsoluteUrl(['activation', 'token' => $epicUser->activationToken]))
             ->send();
         Yii::$app->response->statusCode = 200;
         Yii::$app->response->data = [
-            'message' => 'Please check your email for activation instructions.',
+            'message' => 'errors.epicauth.suc_chk_email',
             'method' => 'EpicAuth',
         ];
         return Yii::$app->response;

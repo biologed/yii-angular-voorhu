@@ -21,19 +21,19 @@ $this->title = 'voorhu.com';
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
 <html lang="<?= Yii::$app->language ?>">
-<head>
-    <title><?= Html::encode($this->title) ?></title>
-    <?php $this->head() ?>
-    <base href="/">
-</head>
-<body>
-<?php
-\Yii::info(\Yii::$app->user->identity);
-?>
-<?php $this->beginBody() ?>
-<div id="loader" class="spinner-container"></div>
-<app-app></app-app>
-<?php $this->endBody() ?>
-</body>
+    <head>
+        <title><?= Html::encode($this->title) ?></title>
+        <?php $this->head() ?>
+        <base href="/">
+    </head>
+    <body>
+        <?php
+            Yii::info(Yii::$app->user->identity);
+        ?>
+        <?php $this->beginBody() ?>
+            <div id="loader" class="spinner-container"></div>
+            <app-app></app-app>
+        <?php $this->endBody() ?>
+    </body>
 </html>
 <?php $this->endPage() ?>
