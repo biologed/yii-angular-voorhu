@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {map, Observable} from 'rxjs';
+import {catchError, map, Observable, of} from 'rxjs';
 import {environment} from "../../environments/environment";
 export interface DiscordInterface {
   result: number;
@@ -22,6 +22,12 @@ export class DiscordService {
     ).pipe(
       map(data=> {
         return data.result
+      }),
+      catchError(() => {
+        if (environment.development) {
+          return of(1000000);
+        }
+        return of();
       })
     );
   }

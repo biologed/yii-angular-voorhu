@@ -49,6 +49,10 @@ section.menu {
     position: relative;
     width: 120px;
     margin-left: .75rem;
+    &._disabled {
+      pointer-events: none;
+      opacity: var(--tui-disabled-opacity);
+    }
   }
   .link {
     flex: 1;
@@ -152,7 +156,7 @@ section.header, section.content {
   }
 }
 section.slider {
-  margin-top: 1rem;
+  margin: 20px;
   overflow: hidden;
   .slider__container {
     width: 100%;

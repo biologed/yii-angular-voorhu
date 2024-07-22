@@ -3,7 +3,10 @@
     "title": "A PROVEN WAY TO SELL MORE",
     "subtitle": "UNREAL ENGINE PLUGINS BY VOORHU",
     "discover": "Discover",
-    "pricing": "Pricing"
+    "pricing": "Pricing",
+    "login": "Login",
+    "logout": "Logout",
+    "account": "Account"
   },
   "slider": {
     "first": {
@@ -122,5 +125,33 @@
     },
     "login": "Already have an account?",
     "link": "Sign In"
+  },
+  "errors": {
+    "header": "Error",
+    "login": {
+      "err_empty_usr_pass": "Please enter the username and password.",
+      "err_usr_nf": "User not found. Please retry.",
+      "err_inc_pass": "Incorrect password.",
+      "err_need_act": "You need to activate your account."
+    },
+    "registration": {
+      "err_alr_reg_with_usr": "Account with this username is already registered.",
+      "err_alr_reg_with_email": "Account with this email is already registered.",
+      "err_alr_reg": "Account already registered.",
+      "suc_chk_email": "Please check your email for activation instructions."
+    },
+    "activation": {
+      "err_inv_usr_status": "Invalid user status.",
+      "err_inv_act_token": "Invalid activation token.",
+      "err_token_nf": "Account activation token not found.",
+      "err_alr_act": "Your account has already been activated.",
+      "suc_usr_act": "The account has been successfully activated."
+    },
+    "epicauth": {
+      "err_inv_code": "The code is invalid.",
+      "err_usr_alr_exs": "A user with this email address already exists.",
+      "err_code_del": "The code has been deleted.",
+      "suc_chk_email": "Please check your email for activation instructions."
+    }
   }
 }

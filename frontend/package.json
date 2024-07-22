@@ -1,10 +1,11 @@
 {
   "name": "app",
   "version": "0.0.0",
+  "type": "module",
   "scripts": {
     "serve": "ng serve --watch --port=3077",
-    "dev": "ng build --configuration dev || exit 0 & gulp build",
-    "prod": "ng build --configuration prod || exit 0 & gulp build",
+    "dev": "ng build --configuration dev || exit 0 & gulp default",
+    "prod": "ng build --configuration prod || exit 0 & gulp default",
     "watch": "ng build || exit 0 --watch",
     "gulp": "gulp",
     "test": "ng test",
@@ -55,7 +56,6 @@
     "codelyzer": "^6.0.2",
     "eslint": "^9.6.0",
     "globals": "^15.7.0",
-    "gulp": "^5.0.0",
     "jasmine-core": "~5.1.2",
     "jasmine-spec-reporter": "^7.0.0",
     "karma": "~6.4.3",
@@ -63,11 +63,14 @@
     "karma-coverage": "~2.2.0",
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
+    "node-fetch": "^2.6.1",
     "npm": "^10.8.1",
     "npm-check": "^6.0.1",
     "protractor": "^7.0.0",
     "ts-node": "^10.9.2",
     "typescript": "^5.5.3",
-    "typescript-eslint": "^8.0.0-alpha.39"
+    "typescript-eslint": "^8.0.0-alpha.39",
+    "gulp": "^5.0.0",
+    "gulp-template": "^6.0.0"
   }
 }

@@ -1,11 +1,13 @@
-import {ChangeDetectionStrategy, Component, Inject, TemplateRef} from '@angular/core';
+import {ChangeDetectionStrategy, Component, Inject, Injector, OnDestroy, TemplateRef} from '@angular/core';
 import {trigger, state, style, animate, transition} from '@angular/animations';
 import {AuthService} from "../services/auth.service";
-import {Observable} from "rxjs";
+import {map, Observable, Subject, takeUntil} from "rxjs";
 import {ActivatedRoute, Router} from "@angular/router";
 import {TuiDialogService} from "@taiga-ui/core";
 import {DiscordService} from "../services/discord.service";
 import {BoostyService} from "../services/boosty.service";
+import {PolymorpheusComponent} from "@tinkoff/ng-polymorpheus";
+import {DialogComponent} from "../tui-dialog/dialog.component";
 type navigationStateInterface = Record<string, string>;
 @Component({
   selector: 'app-home',
@@ -27,11 +29,9 @@ type navigationStateInterface = Record<string, string>;
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class HomeComponent {
-  navigationState: navigationStateInterface = {
-    'voorhu': 'active',
-    'adscorelite': 'inactive'
-  };
+export class HomeComponent implements OnDestroy {
+  private readonly destroy$ = new Subject<void>();
+  public readonly navigationState: navigationStateInterface = {'voorhu': 'active', 'adscorelite': 'inactive'};
   public activationToken: string | null;
   public isLogin$: Observable<boolean>;
   public discordTotalMembersCount$: Observable<number>
@@ -43,32 +43,45 @@ export class HomeComponent {
     private boostyService: BoostyService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    @Inject(TuiDialogService) private readonly dialogs$: TuiDialogService
+    @Inject(TuiDialogService) private readonly dialogs$: TuiDialogService,
+    @Inject(Injector) private readonly injector: Injector
   ) {
     this.isLogin$ = this.authService.getStatus();
     this.discordTotalMembersCount$ = this.discordService.getTotalMembersCount();
     this.boostyTotalMembersCount$ = this.boostyService.getTotalMembersCount();
     if (this.router.url.split('?')[0] === '/activation') {
-      this.activatedRoute.queryParamMap.subscribe(map => {
-        this.activationToken = map.get('token');
-        if (this.activationToken !== null) {
-          this.authService.doActivation(this.activationToken).subscribe({
-            next: data => {
-              this.showDialog(data.message, 'success');
-            },
-            error: err => {
-              this.showDialog(err.error.message);
-            }
-          });
-        }
-      });
+      this.activatedRoute.queryParamMap.pipe(
+        map(map => (
+          this.activationToken = map.get('token')
+        )),
+        takeUntil(this.destroy$)
+      ).subscribe();
+      if (this.activationToken !== null && this.activationToken.length === 32) {
+        this.authService.doActivation(this.activationToken).pipe(
+          takeUntil(this.destroy$)
+        ).subscribe({
+          next: data => {
+            this.showDialog(data.message, 'Success');
+          },
+          error: err => {
+            this.showDialog(err.error.message);
+          }
+        });
+      }
     }
   }
-  showDialog(label: string | undefined, type?: string): void {
-    this.dialogs$.open(label, {
-      label: type || 'Error',
-      size: 'm',
-    }).subscribe({
+  showDialog(body: string | undefined, label?: string): void {
+    this.dialogs$.open(
+      new PolymorpheusComponent(DialogComponent, this.injector),
+      {
+        data: {
+          label: label,
+          body: body,
+        },
+      },
+    ).pipe(
+      takeUntil(this.destroy$)
+    ).subscribe({
       complete: () => {
         this.router.navigate(['/']).then();
       }
@@ -77,5 +90,9 @@ export class HomeComponent {
   toggleNavigation(menuName: string, event: Event) {
     event.preventDefault();
     this.navigationState[menuName] = (this.navigationState[menuName] === 'inactive' ? 'active' : 'inactive');
+  }
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 }

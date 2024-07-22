@@ -27,8 +27,11 @@ export class SwiperComponent implements AfterViewInit {
         spaceBetween: 20,
       },
       '@1.50': {
-        slidesPerView: 4,
+        slidesPerView: 3,
       },
+      '@2.00': {
+        slidesPerView: 4,
+      }
     },
   };
   swiper?: Swiper;

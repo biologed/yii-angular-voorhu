@@ -4,6 +4,7 @@ import {LoginComponent} from "./login/login.component";
 import {RegistrationComponent} from "./registration/registration.component";
 import {AuthComponent} from "./auth/auth.component";
 import {EpicComponent} from "./epic/epic.component";
+import {AccountComponent} from "./account/account.component";
 export const routes: Routes = [
   {
     path: '',
@@ -14,6 +15,11 @@ export const routes: Routes = [
     path: 'activation',
     component: HomeComponent,
     loadChildren: () => import('./home/home.module').then(m => m.HomeModule),
+  },
+  {
+    path: 'account',
+    component: AccountComponent,
+    loadChildren: () => import('./account/account.module').then(m => m.AccountModule),
   },
   {
     path: 'auth',
