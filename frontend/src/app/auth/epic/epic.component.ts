@@ -1,19 +1,36 @@
-import {ChangeDetectionStrategy, Component, Inject, Injector, OnDestroy, OnInit} from '@angular/core';
-import {AbstractControl, FormBuilder, ValidationErrors, Validators} from '@angular/forms';
-import {TuiDialogService} from "@taiga-ui/core";
+import {Component, Inject, Injector, OnDestroy, OnInit} from '@angular/core';
+import {AbstractControl, FormBuilder, ReactiveFormsModule, ValidationErrors, Validators} from '@angular/forms';
+import {TuiButtonModule, TuiDialogService, TuiErrorModule} from "@taiga-ui/core";
 import {TuiValidationError} from "@taiga-ui/cdk";
-import {AuthService} from "../services/auth.service";
-import {ActivatedRoute, Router} from "@angular/router";
+import {AuthService} from "../../services/auth.service";
+import {ActivatedRoute, Router, RouterLink} from "@angular/router";
 import {map, Subject, takeUntil} from "rxjs";
 import {PolymorpheusComponent} from "@tinkoff/ng-polymorpheus";
-import {DialogComponent} from "../tui-dialog/dialog.component";
-import {TranslateService} from "@ngx-translate/core";
+import {DialogComponent} from "../../tui-dialog/dialog.component";
+import {TranslateModule, TranslateService} from "@ngx-translate/core";
+import {TuiFieldErrorPipeModule, TuiInputModule, TuiInputPasswordModule} from "@taiga-ui/kit";
+import {CommonModule} from "@angular/common";
+
+const tuiComponents = [
+  TuiFieldErrorPipeModule,
+  TuiErrorModule,
+  TuiInputModule,
+  TuiInputPasswordModule,
+  TuiButtonModule,
+];
 const emailRegExp = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 @Component({
+  standalone: true,
   selector: 'app-epic',
   templateUrl: 'epic.component.html',
   styleUrls: ['epic.component.less'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    RouterLink,
+    TranslateModule,
+    ...tuiComponents,
+  ]
 })
 export class EpicComponent implements OnDestroy, OnInit {
   private readonly destroy$ = new Subject<void>();

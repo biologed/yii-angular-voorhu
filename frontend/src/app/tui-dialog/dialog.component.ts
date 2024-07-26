@@ -1,12 +1,25 @@
-import {ChangeDetectionStrategy, Component, Inject, OnDestroy} from '@angular/core';
-import {TuiDialogContext} from "@taiga-ui/core";
+import {Component, Inject, OnDestroy} from '@angular/core';
+import {TuiButtonModule, TuiDialogContext} from "@taiga-ui/core";
 import {POLYMORPHEUS_CONTEXT} from "@tinkoff/ng-polymorpheus";
 import {Subject} from "rxjs";
+import {CommonModule} from "@angular/common";
+import {TranslateModule} from "@ngx-translate/core";
+import {TuiAutoFocusModule} from "@taiga-ui/cdk";
+
+const tuiComponents = [
+  TuiButtonModule,
+  TuiAutoFocusModule,
+];
 @Component({
+  standalone: true,
   selector: 'app-dialog',
   templateUrl: 'dialog.component.html',
   styleUrls: ['dialog.component.less'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  imports: [
+    CommonModule,
+    TranslateModule,
+    ...tuiComponents,
+  ]
 })
 export class DialogComponent implements OnDestroy {
   private readonly destroy$ = new Subject<void>();

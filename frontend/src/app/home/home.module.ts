@@ -8,7 +8,7 @@ import {httpInterceptorProviders} from '../http.interceptor';
 
 import {TranslateModule} from "@ngx-translate/core";
 import {TuiLinkModule, TuiRootModule, TuiSvgModule} from "@taiga-ui/core";
-import {SwiperModule} from "../swiper/swiper.module";
+import {SwiperComponent} from "../swiper/swiper.component";
 import {RouterLink, RouterOutlet} from "@angular/router";
 import {LanguageSwitcherComponent} from "../language-switcher/language-switcher.component";
 import {NgxCountAnimationDirective} from "ngx-count-animation";
@@ -20,6 +20,12 @@ import {GithubComponent} from "../icons/github/github.component";
 import {BoostyComponent} from "../icons/boosty/boosty.component";
 import {BoostyWithTextComponent} from "../icons/boosty-with-text/boosty-with-text.component";
 import {DiscordWithTextComponent} from "../icons/discord-with-text/discord-with-text.component";
+
+const tuiComponents = [
+  TuiRootModule,
+  TuiSvgModule,
+  TuiLinkModule,
+];
 export const svgIcons = [
   LogoComponent,
   BoostyComponent,
@@ -37,15 +43,13 @@ export const svgIcons = [
     BrowserModule,
     BrowserAnimationsModule,
     NgOptimizedImage,
-    SwiperModule,
+    SwiperComponent,
     RouterLink,
     RouterOutlet,
-    TuiRootModule,
-    TuiSvgModule,
-    TuiLinkModule,
     TranslateModule,
     LanguageSwitcherComponent,
     NgxCountAnimationDirective,
+    ...tuiComponents,
     ...svgIcons,
   ],
   providers: [

@@ -1,18 +1,41 @@
-import {ChangeDetectionStrategy, Component, Inject, Injector, OnDestroy} from '@angular/core';
-import {AbstractControl, FormBuilder, ValidationErrors, Validators} from '@angular/forms';
-import {TuiDialogService} from "@taiga-ui/core";
+import {Component, Inject, Injector, OnDestroy} from '@angular/core';
+import {AbstractControl, FormBuilder, ReactiveFormsModule, ValidationErrors, Validators} from '@angular/forms';
+import {TuiButtonModule, TuiDialogService, TuiErrorModule} from "@taiga-ui/core";
 import {TuiValidationError} from "@taiga-ui/cdk";
-import {AuthService} from "../services/auth.service";
-import {Router} from "@angular/router";
+import {AuthService} from "../../services/auth.service";
+import {Router, RouterLink} from "@angular/router";
 import {Subject, takeUntil} from "rxjs";
 import {PolymorpheusComponent} from "@tinkoff/ng-polymorpheus";
-import {DialogComponent} from "../tui-dialog/dialog.component";
+import {DialogComponent} from "../../tui-dialog/dialog.component";
+import {TranslateModule} from "@ngx-translate/core";
+import {EpicComponent} from "../../icons/epic/epic.component";
+import {TuiFieldErrorPipeModule, TuiInputModule, TuiInputPasswordModule} from "@taiga-ui/kit";
+import {AsyncPipe} from "@angular/common";
+
+const svgIcons = [
+  EpicComponent,
+];
+const tuiComponents = [
+  TuiButtonModule,
+  TuiInputModule,
+  TuiFieldErrorPipeModule,
+  TuiErrorModule,
+  TuiInputPasswordModule,
+];
 const latinCharRegExp = /^[0-9a-zA-Z]+$/;
 @Component({
+  standalone: true,
   selector: 'app-login',
   templateUrl: 'login.component.html',
   styleUrls: ['login.component.less'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  imports: [
+    AsyncPipe,
+    TranslateModule,
+    ReactiveFormsModule,
+    RouterLink,
+    ...tuiComponents,
+    ...svgIcons,
+  ]
 })
 export class LoginComponent implements OnDestroy {
   private readonly destroy$ = new Subject<void>();

@@ -1,11 +1,28 @@
-import {AfterViewInit, Component, ElementRef, ViewChild} from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  CUSTOM_ELEMENTS_SCHEMA,
+  ElementRef,
+  ViewChild
+} from '@angular/core';
 import {register, SwiperContainer} from 'swiper/element/bundle';
 import {SwiperOptions} from "swiper/types";
 import {Swiper} from "swiper";
+import {CommonModule, NgOptimizedImage} from "@angular/common";
+import {SwiperDirective} from "./swiper.directive";
+import {TranslateModule} from "@ngx-translate/core";
 @Component({
+  standalone: true,
   selector: 'app-swiper',
   templateUrl: 'swiper.component.html',
-  styleUrls: ['swiper.component.less']
+  styleUrls: ['swiper.component.less'],
+  imports: [
+    CommonModule,
+    NgOptimizedImage,
+    SwiperDirective,
+    TranslateModule
+  ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class SwiperComponent implements AfterViewInit {
   @ViewChild('swiperRef', { static: true }) private swiperRef: ElementRef | undefined;

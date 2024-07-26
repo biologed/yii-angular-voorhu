@@ -1,6 +1,7 @@
 import { src, dest, series, parallel } from 'gulp';
 import fs from "fs";
 import template from 'gulp-template';
+import rename from 'gulp-rename';
 
 export function angular() {
   return src(['build/**/*', '!build/assets/**/*'])
@@ -12,7 +13,7 @@ export function assets() {
 }
 export function modifyAppAsset() {
   const arrayList = getAssetFilesList();
-  return src('C:/Server/htdocs/api/assets/template/AppAsset.php')
+  return src('C:/Server/htdocs/api/assets/template/AppAsset.template')
     .pipe(template({
       css: arrayList.css,
       js1: arrayList.js1,
@@ -20,6 +21,9 @@ export function modifyAppAsset() {
       js3: arrayList.js3,
     }, {
       envOptions: false
+    }))
+    .pipe(rename({
+      extname: '.php'
     }))
     .pipe(dest('C:/Server/htdocs/api/assets'))
 }

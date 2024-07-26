@@ -8,4 +8,5 @@ import {environment} from "./environments/environment";
 if (!environment.development) {
   enableProdMode();
 }
-bootstrapApplication(AppComponent, appConfig).catch((err) => console.error(err));
+bootstrapApplication(AppComponent, appConfig)
+  .catch((err) => console.error(err));

@@ -2,6 +2,10 @@
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "version": 1,
   "cli": {
+    "cache": {
+      "enabled": true,
+      "environment": "all"
+    },
     "packageManager": "npm",
     "analytics": false,
     "schematicCollections": [
@@ -68,8 +72,8 @@
                 },
                 "fonts": true
               },
-              "outputHashing": "media",
-              "sourceMap": true,
+              "outputHashing": "all",
+              "sourceMap": false,
               "extractLicenses": false,
               "buildOptimizer": true
             },

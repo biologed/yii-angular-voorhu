@@ -3,11 +3,11 @@
     <a routerLink="/"><app-svg-logo></app-svg-logo></a>
     <a target="_blank" href="https://discord.gg/6438KrNr38" tuiLink class="link">Discord</a>
     <div *ngIf="isLogin$ | async; else templateLogout">
-      <a href="/account" tuiLink class="contact _disabled">{{ "header.account" | translate }}</a>
-      <a href="/auth/logout" tuiLink class="contact">{{ "header.logout" | translate }}</a>
+      <a routerLink="/account" tuiLink class="contact _disabled">{{"header.account" | translate}}</a>
+      <a href="/auth/logout" tuiLink class="contact">{{"header.logout" | translate}}</a>
     </div>
     <ng-template #templateLogout>
-      <a routerLink="/auth/login" tuiLink class="contact">{{ "header.login" | translate }}</a>
+      <a routerLink="/auth/login" tuiLink class="contact">{{"header.login" | translate}}</a>
     </ng-template>
     <app-language-switcher></app-language-switcher>
   </div>
@@ -15,11 +15,11 @@
 <section class="header">
   <div class="offer">
     <div class="title__container">
-      <p>{{ "header.subtitle" | translate }}</p>
-      <h1 class="mb-2">{{ "header.title" | translate }}</h1>
+      <p>{{"header.subtitle" | translate}}</p>
+      <h1 class="mb-2">{{"header.title" | translate}}</h1>
       <div class="links__container">
-        <a class="link" href="#slider"><span>{{ "header.discover" | translate }}</span></a>
-        <a class="link" href="#pricing"><span>{{ "header.pricing" | translate }}</span></a>
+        <a class="link" href="#slider"><span>{{"header.discover" | translate}}</span></a>
+        <a class="link" href="#pricing"><span>{{"header.pricing" | translate}}</span></a>
       </div>
     </div>
   </div>

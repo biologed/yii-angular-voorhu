@@ -153,5 +153,10 @@
       "err_code_del": "The code has been deleted.",
       "suc_chk_email": "Please check your email for activation instructions."
     }
+  },
+  "pagenotfound": {
+    "title": "404",
+    "subtitle": "Page not found",
+    "return": "Back to Home"
   }
 }

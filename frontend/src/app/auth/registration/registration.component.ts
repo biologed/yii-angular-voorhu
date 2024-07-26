@@ -1,19 +1,37 @@
-import {ChangeDetectionStrategy, Component, Inject, Injector, OnDestroy} from '@angular/core';
-import {AbstractControl, FormBuilder, ValidationErrors, Validators} from '@angular/forms';
-import {TuiDialogService} from "@taiga-ui/core";
+import {Component, Inject, Injector, OnDestroy} from '@angular/core';
+import {AbstractControl, FormBuilder, ReactiveFormsModule, ValidationErrors, Validators} from '@angular/forms';
+import {TuiButtonModule, TuiDialogService, TuiErrorModule} from "@taiga-ui/core";
 import {TuiValidationError} from "@taiga-ui/cdk";
-import {AuthService} from "../services/auth.service";
+import {AuthService} from "../../services/auth.service";
 import {Subject, takeUntil} from "rxjs";
 import {PolymorpheusComponent} from "@tinkoff/ng-polymorpheus";
-import {DialogComponent} from "../tui-dialog/dialog.component";
-import {TranslateService} from "@ngx-translate/core";
+import {DialogComponent} from "../../tui-dialog/dialog.component";
+import {TranslateModule, TranslateService} from "@ngx-translate/core";
+import {CommonModule} from "@angular/common";
+import {RouterLink} from "@angular/router";
+import {TuiFieldErrorPipeModule, TuiInputModule, TuiInputPasswordModule} from "@taiga-ui/kit";
+
+const tuiComponents = [
+  TuiFieldErrorPipeModule,
+  TuiErrorModule,
+  TuiInputModule,
+  TuiInputPasswordModule,
+  TuiButtonModule,
+];
 const emailRegExp = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 const latinCharRegExp = /^[0-9a-zA-Z]+$/;
 @Component({
+  standalone: true,
   selector: 'app-registration',
   templateUrl: 'registration.component.html',
   styleUrls: ['registration.component.less'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    RouterLink,
+    TranslateModule,
+    ...tuiComponents,
+  ]
 })
 export class RegistrationComponent implements OnDestroy {
   private readonly destroy$ = new Subject<void>();

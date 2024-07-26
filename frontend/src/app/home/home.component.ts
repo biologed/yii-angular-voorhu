@@ -1,14 +1,15 @@
-import {ChangeDetectionStrategy, Component, Inject, Injector, OnDestroy, TemplateRef} from '@angular/core';
-import {trigger, state, style, animate, transition} from '@angular/animations';
-import {AuthService} from "../services/auth.service";
-import {map, Observable, Subject, takeUntil} from "rxjs";
+import {Component, Inject, Injector, OnDestroy, TemplateRef} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
+import {trigger, state, style, animate, transition} from '@angular/animations';
+import {map, Observable, Subject, takeUntil} from "rxjs";
 import {TuiDialogService} from "@taiga-ui/core";
+import {AuthService} from "../services/auth.service";
 import {DiscordService} from "../services/discord.service";
 import {BoostyService} from "../services/boosty.service";
 import {PolymorpheusComponent} from "@tinkoff/ng-polymorpheus";
 import {DialogComponent} from "../tui-dialog/dialog.component";
 type navigationStateInterface = Record<string, string>;
+
 @Component({
   selector: 'app-home',
   templateUrl: 'home.component.html',
@@ -26,8 +27,7 @@ type navigationStateInterface = Record<string, string>;
       transition('inactive => active', animate('200ms ease-in')),
       transition('active => inactive', animate('200ms ease-out'))
     ])
-  ],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  ]
 })
 export class HomeComponent implements OnDestroy {
   private readonly destroy$ = new Subject<void>();

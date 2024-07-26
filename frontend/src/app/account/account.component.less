@@ -1,6 +1,7 @@
 .wrapper {
   display: block;
   height: 100vh;
+  min-height: 880px;
   .back {
     position: absolute;
     z-index: 1000;
@@ -37,16 +38,66 @@
     }
     .form-column {
       position: absolute;
-      width: 50%;
+      width: 75%;
       height: 75%;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
       background-color: rgba(0, 0, 0, 0.75);
-      .container {
-        width: 69rem;
-        margin-right: auto;
-        margin-left: auto;
+      .column-wrapper {
+        height: calc(100% - 160px);
+        margin: 80px 0;
+        .container {
+          width: 69rem;
+          margin-right: auto;
+          margin-left: auto;
+          position: relative;
+          .header, .subheader {
+            font-size: 2rem;
+            line-height: 78px;
+            font-weight: bold;
+            margin-bottom: 20px;
+          }
+          .header{
+            font-size: 6rem;
+          }
+          .account_name {
+            position: absolute;
+            top: 0;
+            right: 0;
+            font-size: 1.5rem;
+            line-height: 78px;
+          }
+          .account_container, .invoices_container {
+            display: flex;
+            justify-content: space-between;
+            align-items: stretch;
+          }
+          .account_container {
+            .column {
+              display: flex;
+              flex-wrap: wrap;
+              .row {
+                height: 100px;
+              }
+            }
+          }
+          .invoices_container {
+            .column {
+              display: flex;
+              flex-wrap: wrap;
+              .row {
+                height: 40px;
+              }
+            }
+          }
+        }
+        @media (max-width: 1440px) {
+          .container {
+            width: calc(100% - 40px);
+            margin: 0 20px;
+          }
+        }
       }
     }
   }
@@ -55,15 +106,38 @@
       flex-direction: column;
       .logo-column {
         max-width: 100%;
-        background-color: rgba(0, 0, 0, 0.75);
       }
       .form-column {
         flex: auto;
         max-width: 100%;
         max-height: 100%;
-        margin-bottom: -105px;
-        .container {
-          margin-bottom: 105px;
+      }
+    }
+  }
+  @media (max-width: 768px) {
+    .row {
+      .form-column {
+        width: 100%;
+        .column-wrapper {
+          height: calc(100% - 40px);
+          margin: 20px 0;
+          .container {
+            width: calc(100% - 40px);
+            margin: 0 20px;
+            min-width: 500px;
+            .header {
+              font-size: 4rem;
+              line-height: 4rem;
+              text-align: center;
+            }
+            .account_name {
+              font-size: 1.5rem;
+              text-align: center;
+              margin-bottom: 20px;
+              position: relative;
+              line-height: 1rem;
+            }
+          }
         }
       }
     }

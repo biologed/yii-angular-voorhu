@@ -30,6 +30,6 @@ export const appConfig: ApplicationConfig = {
     }),
     provideHttpClient(withFetch()),
     provideAnimationsAsync(),
-    provideExperimentalZonelessChangeDetection(), provideClientHydration()
+    provideExperimentalZonelessChangeDetection()
   ],
 };
