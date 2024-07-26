@@ -5,6 +5,7 @@ namespace app\controllers;
 use Yii;
 use yii\base\InvalidConfigException;
 use yii\filters\Cors;
+use yii\filters\HttpCache;
 use yii\helpers\ArrayHelper;
 use yii\httpclient\Client;
 use yii\httpclient\Exception;
@@ -15,15 +16,21 @@ use yii\web\ErrorAction;
 
 class DiscordController extends Controller
 {
-    public $enableCsrfValidation = false;
     public function behaviors(): array
     {
         return ArrayHelper::merge(parent::behaviors(), [
+            'httpCache' => [
+                'class' => HttpCache::class,
+                'lastModified' => function ($action, $params) {
+                    return time();
+                },
+                'cacheControlHeader' => 'public, max-age=86400',
+            ],
             'corsFilter' => [
                 'class' => Cors::class,
                 'cors' => [
                     'Origin' => ['*'],
-                    'Access-Control-Request-Method' => ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'HEAD', 'OPTIONS'],
+                    'Access-Control-Request-Method' => ['GET', 'HEAD', 'OPTIONS'],
                     'Access-Control-Request-Headers' => ['*'],
                     'Access-Control-Allow-Credentials' => null,
                     'Access-Control-Max-Age' => 86400,
@@ -80,7 +87,7 @@ class DiscordController extends Controller
             ];
             return Yii::$app->response;
         }
-        Yii::$app->response->data =  [
+        Yii::$app->response->data = [
             'result' => 0
         ];
         return Yii::$app->response;

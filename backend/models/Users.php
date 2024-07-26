@@ -29,10 +29,6 @@ class Users extends ActiveRecord implements IdentityInterface
 {
     public const STATUS_INACTIVE = 0;
     public const STATUS_ACTIVE = 1;
-
-    /**
-     * {@inheritdoc}
-     */
     public static function tableName(): string
     {
         return 'ads_users';
@@ -40,7 +36,7 @@ class Users extends ActiveRecord implements IdentityInterface
     /**
      * Finds an identity by the given ID.
      *
-     * @param string|int $id the ID to be looked for
+     * @param int $id the ID to be looked for
      * @return IdentityInterface|null the identity object that matches the given ID.
      */
     public static function findIdentity($id): ?IdentityInterface
@@ -92,9 +88,6 @@ class Users extends ActiveRecord implements IdentityInterface
         }
         return false;
     }
-    /**
-     * {@inheritdoc}
-     */
     public function rules(): array
     {
         return [

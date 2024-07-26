@@ -1,2 +1,0 @@
-"use strict";(self.webpackChunkmyApp=self.webpackChunkmyApp||[]).push([[359],{359:(M,n,t)=>{t.r(n),t.d(n,{AccountModule:()=>u,svgIcons:()=>l});var c=t(316),_=t(1851),a=t(3305),s=t(7404);const l=[a.Z];let u=(()=>{class o{static#t=this.\u0275fac=function(E){return new(E||o)};static#o=this.\u0275mod=s.$C({type:o});static#n=this.\u0275inj=s.G2t({imports:[c.MD,_.vl]})}return o})()}}]);
-//# sourceMappingURL=359.js.map

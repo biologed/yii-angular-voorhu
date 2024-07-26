@@ -12,18 +12,25 @@ use yii\rest\Controller;
 use yii\web\BadRequestHttpException;
 use yii\web\Response;
 use yii\web\ErrorAction;
+use yii\filters\HttpCache;
 
 class BoostyController extends Controller
 {
-    public $enableCsrfValidation = false;
     public function behaviors(): array
     {
         return ArrayHelper::merge(parent::behaviors(), [
+            'httpCache' => [
+                'class' => HttpCache::class,
+                'lastModified' => function ($action, $params) {
+                    return time();
+                },
+                'cacheControlHeader' => 'public, max-age=86400',
+            ],
             'corsFilter' => [
                 'class' => Cors::class,
                 'cors' => [
                     'Origin' => ['*'],
-                    'Access-Control-Request-Method' => ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'HEAD', 'OPTIONS'],
+                    'Access-Control-Request-Method' => ['GET', 'HEAD', 'OPTIONS'],
                     'Access-Control-Request-Headers' => ['*'],
                     'Access-Control-Allow-Credentials' => null,
                     'Access-Control-Max-Age' => 86400,

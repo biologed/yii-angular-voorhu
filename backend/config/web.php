@@ -1,16 +1,18 @@
 <?php
 
+use yii\web\AssetBundle;
+use yii\web\JsonParser;
 use yii\web\UrlManager;
-use app\models\Users;
 
 use yii\debug\Module;
 use yii\log\FileTarget;
-use yii\web\JsonParser;
 use yii\symfonymailer\Mailer;
 
 use yii\redis\Session;
 use yii\redis\Cache;
 use yii\redis\Connection;
+
+use app\models\Users;
 
 use Symfony\Component\Dotenv\Dotenv;
 
@@ -23,7 +25,9 @@ $db = require __DIR__ . '/db.php';
 $config = [
     'id' => 'basic',
     'basePath' => dirname(__DIR__),
-    'bootstrap' => ['log'],
+    'bootstrap' => [
+        'log'
+    ],
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
         '@npm'   => '@vendor/npm-asset',
@@ -93,16 +97,27 @@ $config = [
             'showScriptName' => false,
             'enableStrictParsing' => true,
             'rules' => [
-                '<controller:(boosty|discord)>/<action:(get-total-members)>' => '<controller>/<action>',
-                '<controller:(auth)>/<action:(sign-in|sign-up|logout|status|activation|get-access-token-from-epic|sign-up-from-epic)>' => '<controller>/<action>',
                 //Для Angular
                 '/' => 'site/index',
                 '/account' => 'site/index',
-                '<controller:(auth)>/<action:(login|registration|epic)>' => 'site/index',
+                '/auth/<action:(login|registration|epic)>' => 'site/index',
+                '<controller:(auth)>/<action:(sign-in|sign-up|logout|status|activation|get-access-token-from-epic|sign-up-from-epic)>' => '<controller>/<action>',
                 '<controller:(api)>/ads-stat/<action:(new-play|total-count|app-list|apps-rating)>' => '<controller>/<action>',
                 '<controller:(api)>/<action:(new-play|total-count|app-list|apps-rating)>' => '<controller>/<action>',
+                '<controller:(boosty|discord)>/<action:(get-total-members)>' => '<controller>/<action>',
+                '<controller:(account)>/<action:(info)>' => '<controller>/<action>',
             ],
         ],
+        'assetManager' => [
+            'linkAssets' => true,
+            'bundles' => [
+                'all' => [
+                    'class' => AssetBundle::class,
+                    'basePath' => '@webroot/assets',
+                    'baseUrl' => '@web/assets',
+                ]
+            ]
+        ]
     ],
     'params' => $params,
 ];

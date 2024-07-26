@@ -2,21 +2,23 @@
 
 namespace app\controllers;
 
-use app\models\Adsstats;
+use app\models\AdsStats;
 
+use app\models\PlayMarketInfo;
 use Throwable;
 use Yii;
-use yii\db\DataReader;
+use yii\caching\CacheInterface;
 use yii\db\Exception;
 use yii\filters\Cors;
 use yii\helpers\ArrayHelper;
 use yii\rest\Controller;
+use yii\web\BadRequestHttpException;
 use yii\web\Response;
 use yii\web\ErrorAction;
 
 class ApiController extends Controller
 {
-    public $enableCsrfValidation = false;
+    private ?CacheInterface $cache;
     public function behaviors(): array
     {
         return ArrayHelper::merge(parent::behaviors(), [
@@ -44,61 +46,122 @@ class ApiController extends Controller
         ];
     }
     /**
+     * @throws BadRequestHttpException
+     */
+    public function beforeAction($action): bool
+    {
+        if (!parent::beforeAction($action)) {
+            return false;
+        }
+        $this->cache = Yii::$app->cache;
+        Yii::$app->response->format = Response::FORMAT_JSON;
+        return true;
+    }
+    /**
      * @throws Exception
      * @throws Throwable
      */
-    public function actionNewPlay(): int
+    public function actionNewPlay(): Response
     {
         $appId = Yii::$app->request->getBodyParam('appId');
         $appType = Yii::$app->request->getBodyParam('identifier');
         if (empty($appType) || empty($appId)) {
-            return 0;
+            Yii::$app->response->data = [
+                'result' => 'error'
+            ];
+            return Yii::$app->response;
         }
-        Yii::$app->response->format = Response::FORMAT_JSON;
-        $adsstats = new Adsstats();
+        $adsstats = new AdsStats();
         $adsstats->appId = $appId;
         $adsstats->appType = $appType;
         $adsstats->save();
-        return 1;
+        Yii::$app->response->data = [
+            'result' => 'success'
+        ];
+        return Yii::$app->response;
     }
-    /**
-     * @throws Exception
-     */
-    public function actionTotalCount(): DataReader|array
+    public function actionTotalCount(): Response
     {
-        Yii::$app->response->format = Response::FORMAT_JSON;
-        return Yii::$app->db->createCommand('SELECT SUM(sumTimesCalled) as sum FROM voorhu.vads_stats')->queryAll();
+        if ($this->getCacheValue('total-count')) {
+            return Yii::$app->response;
+        }
+        $query = AdsStats::find()
+            ->sum('sumTimesCalled');
+        $this->setCacheValue('total-count', $query ?? 0);
+        Yii::$app->response->data = [
+            'result' => $query
+        ];
+        return Yii::$app->response;
     }
-    /**
-     * @throws Exception
-     */
-    public function actionAppList(): array
+    public function actionAppList(): Response
     {
-        Yii::$app->response->format = Response::FORMAT_JSON;
-        $list = Yii::$app->db->createCommand('SELECT * FROM voorhu.vads_stats')->queryAll();
-        $appList = [
+        if ($this->getCacheValue('app-list')) {
+            return Yii::$app->response;
+        }
+        $query = AdsStats::find()
+            ->select(['appId', 'appType', 'sumTimesCalled'])
+            ->all();
+        $list = [
             'prod' => [],
             'test' => []
         ];
-        foreach ($list as $iValue) {
-            if ($iValue['appType'] === '99') {
-                $appList['test'][$iValue['appType']][] = [$iValue['appId'] => $iValue['sumTimesCalled']];
+        foreach ($query as $value) {
+            if ($value['appType'] === 99) {
+                $list['test'][$value['appType']][] = [
+                    $value['appId'] => $value['sumTimesCalled']
+                ];
             } else {
-                $appList['prod'][$iValue['appType']][] = [$iValue['appId'] => $iValue['sumTimesCalled']];
+                $list['prod'][$value['appType']][] = [
+                    $value['appId'] => $value['sumTimesCalled']
+                ];
             }
         }
-        return $appList;
+        $this->setCacheValue('app-list', $list ?? []);
+        Yii::$app->response->data = [
+            'result' => $list,
+        ];
+        return Yii::$app->response;
     }
-    /**
-     * @throws Exception
-     */
-    public function actionAppsRating(): array
+    public function actionAppsRating(): Response
     {
-        $order = Yii::$app->getRequest()->getQueryParam('order') ?? "title";
-        $sort = Yii::$app->getRequest()->getQueryParam('sort') === 'ASC' ? 'ASC' : 'DESC';
-        return Yii::$app->db->createCommand('SELECT appId, title, rating, reviews, downloads FROM voorhu.play_market_info WHERE title <> :title ORDER BY :order', [
-            ':title' => 'not_published',
-            ':order' => $order . $sort,
-        ])->queryAll();
+        $order = strtolower(Yii::$app->request->getQueryParam('order') ?? 'title');
+        $order = in_array($order, ['title', 'appId', 'rating', 'reviews', 'downloads']) ? $order : 'title';
+        $sort = strtoupper(Yii::$app->request->getQueryParam('sort') ?? 'ASC') === 'ASC' ? SORT_ASC : SORT_DESC;
+
+        if ($this->getCacheValue('apps-rating-' . $order . '-' . $sort)) {
+            return Yii::$app->response;
+        }
+        $query = PlayMarketInfo::find()
+            ->select(['title', 'appId', 'rating', 'reviews', 'downloads'])
+            ->where(['not in', 'categoryName', [null]])
+            ->orderBy([$order => $sort])
+            ->all();
+        $this->setCacheValue('apps-rating-' . $order . '-' . $sort, $query ?? []);
+        Yii::$app->response->data = [
+            'result' => $query,
+            'order' => $order,
+            'sort' => $sort,
+        ];
+        return Yii::$app->response;
+    }
+    private function getCacheValue(string $key): bool
+    {
+        $cacheValue = $this->cache->get($key);
+        $timestamp = $this->cache->get($key . '-timestamp');
+        if ($timestamp !== false && $cacheValue !== false && time() <= $timestamp + 86000) {
+            Yii::$app->response->data = [
+                'result' => $cacheValue,
+                'timestamp' => $timestamp,
+                'cached' => true
+            ];
+            Yii::$app->response;
+            return true;
+        }
+        return false;
+    }
+    private function setCacheValue(string $key, mixed $value): void
+    {
+        $this->cache->set($key, $value);
+        $this->cache->set($key . '-timestamp', time());
     }
 }

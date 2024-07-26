@@ -1,10 +1,4 @@
 <?php
-/**
- * @link https://www.yiiframework.com/
- * @copyright Copyright (c) 2008 Yii Software LLC
- * @license https://www.yiiframework.com/license/
- */
-
 namespace app\assets;
 
 use yii\web\AssetBundle;
@@ -20,18 +14,15 @@ class AppAsset extends AssetBundle
     public $basePath = '@webroot';
     public $baseUrl = '@web';
 
-    public $css = (YII_ENV_PROD) ? [
-		'styles.1e0028ee942d2d13.css',
-	] : [
-        'styles.css',
-    ];
-    public $js = (YII_ENV_PROD) ? [
-		'main.50b2e1b0b4282458.js',
+    public $css = [
+		'styles.dd21ec04b7fced51.css',
+	];
+    public $js = [
+		'main.d9df956c6776ae00.js',
 		'polyfills.746955fb3510a002.js',
-		'runtime.12709cf9b63ab50d.js',
-	] : [
-        'runtime.js',
-        'polyfills.js',
-        'main.js',
+		'runtime.55bf0158cbfc6aa4.js',
+	];
+    public $jsOptions = [
+        'type' => 'module'
     ];
 }

@@ -14,13 +14,11 @@ use yii\filters\Cors;
 use yii\helpers\ArrayHelper;
 use yii\httpclient\Client;
 use yii\rest\Controller;
-use yii\web\BadRequestHttpException;
 use yii\web\ErrorAction;
 use yii\web\Response;
 
 class AuthController extends Controller
 {
-    public $enableCsrfValidation = false;
     public function behaviors(): array
     {
         return ArrayHelper::merge(parent::behaviors(), [

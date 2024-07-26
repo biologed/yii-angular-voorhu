@@ -32,7 +32,7 @@ $this->title = 'voorhu.com';
         ?>
         <?php $this->beginBody() ?>
             <div id="loader" class="spinner-container"></div>
-            <app-app></app-app>
+            <app-root></app-root>
         <?php $this->endBody() ?>
     </body>
 </html>

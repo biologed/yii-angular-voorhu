@@ -6,19 +6,11 @@ use Yii;
 use yii\db\ActiveRecord;
 use yii\web\Response;
 
-class AdsStats extends ActiveRecord
+class PlayMarketInfo extends ActiveRecord
 {
-    /**
-     * @var string|null
-     */
-    public ?string $appId;
-    /**
-     * @var int|null
-     */
-    public ?int $appType;
     public static function tableName(): string
     {
-        return 'vads_stats';
+        return 'play_market_info';
     }
     public function afterFind(): void
     {
@@ -28,8 +20,8 @@ class AdsStats extends ActiveRecord
     {
         return [
             [['id'], 'required'],
-            [['id', 'appType', 'sumTimesCalled'], 'integer'],
-            [['firstCreatedAt', 'lastCreatedAt'], 'safe'],
+            [['reviews'], 'integer'],
+            [['createdAt', 'updatedAt'], 'safe'],
             [['appId'], 'string', 'max' => 255],
         ];
     }
@@ -38,10 +30,9 @@ class AdsStats extends ActiveRecord
         return [
             'id' => 'ID',
             'appId' => 'App ID',
-            'appType' => 'App Type',
-            'sumTimesCalled' => 'Sum Times Called',
-            'firstCreatedAt' => 'First Created At',
-            'lastCreatedAt' => 'Last Created At'
+            'categoryName' => 'Category Name',
+            'createdAt' => 'Created At',
+            'updatedAt' => 'Updated At',
         ];
     }
 }

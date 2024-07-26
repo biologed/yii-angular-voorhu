@@ -1,2 +1,0 @@
-"use strict";(self.webpackChunkmyApp=self.webpackChunkmyApp||[]).push([[31],{5031:(l,a,_)=>{_.r(a),_.d(a,{RegistrationModule:()=>u,tuiComponents:()=>n});var i=_(316),s=_(4456),M=_(6223),o=_(1852),D=_(9073),P=_(9165),O=_(4307),C=_(852),E=_(7404);const n=[D.Hi,M.F,P.zi,O.Qw,o.Pv];let u=(()=>{class t{static#_=this.\u0275fac=function(g){return new(g||t)};static#t=this.\u0275mod=E.$C({type:t});static#a=this.\u0275inj=E.G2t({imports:[i.MD,s.X1,C.h,n]})}return t})()}}]);
-//# sourceMappingURL=31.js.map
