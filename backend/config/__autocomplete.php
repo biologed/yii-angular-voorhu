@@ -1,7 +1,6 @@
 <?php
 
 use yii\web\Application;
-use yii\web\User;
 
 class Yii {
     /**

@@ -109,7 +109,6 @@ $config = [
             ],
         ],
         'assetManager' => [
-            'linkAssets' => true,
             'bundles' => [
                 'all' => [
                     'class' => AssetBundle::class,
